@@ -1,0 +1,2 @@
+# automedicare-dashboard
+ระบบดูแลคลังยา AutoMediCare
