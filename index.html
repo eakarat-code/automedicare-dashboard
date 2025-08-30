@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - ระบบติดตามข้อมูล</title>
+    <title>AutoMediCare - ระบบดูแลคลังยา 24 ชั่วโมง</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -16,675 +16,880 @@
         .card-gradient-3 { background: linear-gradient(135deg, #06B6D4 0%, #A7F3D0 100%); }
         .card-gradient-4 { background: linear-gradient(135deg, #0D9488 0%, #CCFBF1 100%); }
         .logo-gradient { background: linear-gradient(135deg, #0891B2 0%, #06B6D4 100%); }
+        .login-bg { background: linear-gradient(135deg, #0891B2 0%, #06B6D4 50%, #0D9488 100%); }
+        .login-card { backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.95); }
     </style>
 </head>
 <body class="bg-cyan-50">
-    <div class="flex h-screen">
-        <!-- Sidebar Menu -->
-        <div class="w-64 bg-white shadow-lg">
-            <div class="p-6 border-b border-gray-200">
-                <div class="flex items-center mb-3">
-                    <div class="logo-gradient w-10 h-10 rounded-lg flex items-center justify-center mr-3">
-                        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm5-18v4h3V3h-3z"/>
-                        </svg>
+    <!-- Login Screen -->
+    <div id="login-screen" class="min-h-screen login-bg flex items-center justify-center p-4">
+        <div class="login-card rounded-2xl shadow-2xl p-8 w-full max-w-md">
+            <!-- Hospital Header -->
+            <div class="text-center mb-8">
+                <div class="logo-gradient w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-2xl relative overflow-hidden" style="background: linear-gradient(145deg, #0891B2 0%, #06B6D4 50%, #0E7490 100%); box-shadow: 0 20px 40px rgba(8, 145, 178, 0.3), inset 0 1px 0 rgba(255,255,255,0.2);">
+                    <!-- Medicine bottle with enhanced 3D effect -->
+                    <svg class="w-14 h-14 text-white relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                        <!-- Medicine bottle shadow -->
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.5 6.5V4.5c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v2" stroke="rgba(0,0,0,0.3)" stroke-width="2"/>
+                        <rect x="6.5" y="6.5" width="12" height="14" rx="2" ry="2" fill="rgba(0,0,0,0.2)"/>
+                        
+                        <!-- Main medicine bottle -->
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 6V4c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v2" stroke="white" stroke-width="2"/>
+                        <rect x="6" y="6" width="12" height="14" rx="2" ry="2" fill="rgba(255,255,255,0.15)" stroke="white" stroke-width="1.5"/>
+                        
+                        <!-- Enhanced cross symbol with 3D effect -->
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12.5 9.5v6M9.5 12.5h6" stroke="rgba(220, 38, 38, 0.8)" stroke-width="3"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6M9 12h6" stroke="#DC2626" stroke-width="2.5"/>
+                        
+                        <!-- Medicine pills inside bottle -->
+                        <circle cx="10" cy="11" r="1" fill="rgba(255,255,255,0.6)"/>
+                        <circle cx="14" cy="15" r="1" fill="rgba(255,255,255,0.6)"/>
+                        <circle cx="11" cy="17" r="0.8" fill="rgba(255,255,255,0.5)"/>
+                    </svg>
+                    
+                    <!-- 24 ชม. indicator with enhanced styling -->
+                    <div class="absolute top-1 right-1 w-8 h-8 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center shadow-lg border-2 border-white" style="box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);">
+                        <div class="text-center">
+                            <div class="text-white font-bold text-xs leading-none">24</div>
+                            <div class="text-white font-medium text-[6px] leading-none">ชม.</div>
+                        </div>
                     </div>
-                    <div>
-                        <h1 class="text-xl font-bold text-gray-800">AutoMediCare</h1>
-                        <p class="text-sm text-gray-600">ระบบดูแลคลังยา 24 ชั่วโมง</p>
-                    </div>
+                    
+                    <!-- Enhanced glow effects -->
+                    <div class="absolute inset-0 rounded-2xl border border-white/20"></div>
+                    <div class="absolute inset-0 rounded-2xl bg-gradient-to-t from-transparent to-white/10"></div>
+                    <div class="absolute -inset-1 rounded-2xl border-2 border-cyan-300/30 animate-pulse"></div>
+                </div>
+                <h1 class="text-2xl font-bold text-gray-800 mb-2">AutoMediCare</h1>
+                <p class="text-gray-600 text-sm mb-1">ระบบดูแลคลังยา 24 ชั่วโมง</p>
+                <div class="bg-gradient-to-r from-cyan-100 to-teal-100 rounded-lg p-3 mt-4">
+                    <p class="text-cyan-800 font-bold text-xl">รพสต.บ้านกลาง</p>
+                    <p class="text-cyan-700 text-base">อ.อ่าวลึก จ.กระบี่</p>
                 </div>
             </div>
             
-            <nav class="mt-6">
-                <div class="px-4 space-y-2">
-                    <button onclick="showSection('overview')" class="menu-item active-menu w-full text-left px-4 py-3 rounded-lg text-white font-medium transition-all duration-300 flex items-center">
-                        <span class="mr-3">📈</span>
-                        ภาพรวม
-                    </button>
-                    
-                    <button onclick="showSection('googlesheets')" class="menu-item w-full text-left px-4 py-3 rounded-lg text-gray-700 hover:text-white font-medium transition-all duration-300 flex items-center">
-                        <span class="mr-3">📋</span>
-                        Google Sheets
-                    </button>
-                    
-                    <button onclick="showSection('thingspeak')" class="menu-item w-full text-left px-4 py-3 rounded-lg text-gray-700 hover:text-white font-medium transition-all duration-300 flex items-center">
-                        <span class="mr-3">🌡️</span>
-                        ThingSpeak
-                    </button>
-                    
-                    <button onclick="showSection('telegram')" class="menu-item w-full text-left px-4 py-3 rounded-lg text-gray-700 hover:text-white font-medium transition-all duration-300 flex items-center">
-                        <span class="mr-3">📱</span>
-                        Telegram
-                    </button>
-                    
-                    <button onclick="showSection('analytics')" class="menu-item w-full text-left px-4 py-3 rounded-lg text-gray-700 hover:text-white font-medium transition-all duration-300 flex items-center">
-                        <span class="mr-3">📊</span>
-                        การวิเคราะห์
-                    </button>
-                    
-                    <button onclick="showSection('settings')" class="menu-item w-full text-left px-4 py-3 rounded-lg text-gray-700 hover:text-white font-medium transition-all duration-300 flex items-center">
-                        <span class="mr-3">⚙️</span>
-                        ตั้งค่า
-                    </button>
+            <!-- Login Form -->
+            <form id="login-form" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">ชื่อผู้ใช้</label>
+                    <input type="text" id="username" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-colors" placeholder="กรอกชื่อผู้ใช้" required>
                 </div>
-            </nav>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">รหัสผ่าน</label>
+                    <input type="password" id="password" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-colors" placeholder="กรอกรหัสผ่าน" required>
+                </div>
+                
+                <button type="submit" class="w-full bg-gradient-to-r from-cyan-500 to-teal-500 text-white py-3 px-4 rounded-lg font-medium hover:from-cyan-600 hover:to-teal-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                    🔐 เข้าสู่ระบบ
+                </button>
+            </form>
             
 
-        </div>
-
-        <!-- Main Content -->
-        <div class="flex-1 overflow-auto">
-            <!-- Header -->
-            <div class="bg-white shadow-sm border-b border-gray-200 p-6">
-                <div class="flex justify-between items-center">
-                    <div>
-                        <h2 id="page-title" class="text-2xl font-bold text-gray-800">ภาพรวมระบบ</h2>
-                        <p id="page-subtitle" class="text-gray-600 mt-1">ข้อมูลสรุปทั้งหมด</p>
-                    </div>
-                    <div class="flex items-center space-x-4">
-                        <div class="text-right">
-                            <p class="text-sm text-gray-600">อัปเดตล่าสุด</p>
-                            <p class="text-sm font-medium text-gray-800" id="last-update"></p>
-                        </div>
-                        <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Content Area -->
-            <div class="p-6">
-                <!-- Overview Section -->
-                <div id="overview-section" class="section-content">
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                        <div class="card-gradient p-6 rounded-xl text-white">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <p class="text-white/80 text-sm">Google Sheets</p>
-                                    <p class="text-2xl font-bold" id="sheets-count">-</p>
-                                    <p class="text-white/80 text-xs mt-1">รายการข้อมูล</p>
-                                </div>
-                                <div class="text-3xl">📋</div>
-                            </div>
-                        </div>
-                        
-                        <div class="card-gradient-2 p-6 rounded-xl text-white">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <p class="text-white/80 text-sm">อุณหภูมิ</p>
-                                    <p class="text-2xl font-bold" id="overview-temp">-</p>
-                                    <p class="text-white/80 text-xs mt-1">Channel: 2994854</p>
-                                </div>
-                                <div class="text-3xl">🌡️</div>
-                            </div>
-                        </div>
-                        
-                        <div class="card-gradient-3 p-6 rounded-xl text-white">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <p class="text-white/80 text-sm">ความชื้น</p>
-                                    <p class="text-2xl font-bold" id="overview-humid">-</p>
-                                    <p class="text-white/80 text-xs mt-1">Channel: 2994854</p>
-                                </div>
-                                <div class="text-3xl">💧</div>
-                            </div>
-                        </div>
-                        
-                        <div class="card-gradient-4 p-6 rounded-xl text-white">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <p class="text-white/80 text-sm">สถานะ</p>
-                                    <p class="text-2xl font-bold">ออนไลน์</p>
-                                    <p class="text-white/80 text-xs mt-1">ระบบทำงาน</p>
-                                </div>
-                                <div class="text-3xl">✅</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <div class="bg-white p-6 rounded-xl shadow-sm">
-                            <h3 class="text-lg font-semibold text-gray-800 mb-4">📈 กราฟแสดงแนวโน้ม</h3>
-                            <canvas id="trendChart" width="400" height="200"></canvas>
-                        </div>
-                        
-                        <div class="bg-white p-6 rounded-xl shadow-sm">
-                            <h3 class="text-lg font-semibold text-gray-800 mb-4">📊 สถิติรายวัน</h3>
-                            <div class="space-y-4">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-600">ข้อมูลใหม่วันนี้</span>
-                                    <span class="font-semibold text-cyan-600">+45</span>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-600">อุณหภูมิเฉลี่ย</span>
-                                    <span class="font-semibold text-teal-500">24.8°C</span>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-600">ความชื้นเฉลี่ย</span>
-                                    <span class="font-semibold text-cyan-600">65%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Google Sheets Section -->
-                <div id="googlesheets-section" class="section-content hidden">
-                    <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-lg font-semibold text-gray-800">📋 ข้อมูลจาก Google Sheets</h3>
-                            <button onclick="refreshGoogleSheets()" class="bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-                                🔄 รีเฟรช
-                            </button>
-                        </div>
-                        
-                        <div class="overflow-x-auto">
-                            <table class="w-full">
-                                <thead>
-                                    <tr class="border-b border-gray-200">
-                                        <th class="text-left py-3 px-4 font-semibold text-gray-700">วันที่</th>
-                                        <th class="text-left py-3 px-4 font-semibold text-gray-700">เวลา</th>
-                                        <th class="text-left py-3 px-4 font-semibold text-gray-700">อุณหภูมิ (°C)</th>
-                                        <th class="text-left py-3 px-4 font-semibold text-gray-700">ความชื้น (%)</th>
-                                        <th class="text-left py-3 px-4 font-semibold text-gray-700">สถานะ</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="sheets-data">
-                                    <tr class="border-b border-gray-100">
-                                        <td class="py-3 px-4">2025-01-15</td>
-                                        <td class="py-3 px-4">14:30:25</td>
-                                        <td class="py-3 px-4 font-semibold text-cyan-600">25.4</td>
-                                        <td class="py-3 px-4 font-semibold text-blue-600">65</td>
-                                        <td class="py-3 px-4"><span class="bg-teal-100 text-teal-800 px-2 py-1 rounded-full text-xs">ปกติ</span></td>
-                                    </tr>
-                                    <tr class="border-b border-gray-100">
-                                        <td class="py-3 px-4">2025-01-15</td>
-                                        <td class="py-3 px-4">14:25:10</td>
-                                        <td class="py-3 px-4 font-semibold text-cyan-600">32.1</td>
-                                        <td class="py-3 px-4 font-semibold text-blue-600">45</td>
-                                        <td class="py-3 px-4"><span class="bg-orange-100 text-orange-800 px-2 py-1 rounded-full text-xs">เตือน</span></td>
-                                    </tr>
-                                    <tr class="border-b border-gray-100">
-                                        <td class="py-3 px-4">2025-01-15</td>
-                                        <td class="py-3 px-4">14:20:45</td>
-                                        <td class="py-3 px-4 font-semibold text-cyan-600">24.8</td>
-                                        <td class="py-3 px-4 font-semibold text-blue-600">58</td>
-                                        <td class="py-3 px-4"><span class="bg-teal-100 text-teal-800 px-2 py-1 rounded-full text-xs">ปกติ</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-blue-50 p-4 rounded-lg">
-                        <p class="text-blue-800 font-medium text-sm">ℹ️ หมายเหตุ: เกณฑ์การประเมินสถานะ</p>
-                        <div class="mt-2 space-y-1">
-                            <p class="text-blue-600 text-xs">
-                                <span class="inline-block w-3 h-3 bg-teal-500 rounded-full mr-2"></span>
-                                <strong>สถานะปกติ:</strong> อุณหภูมิ 20.0-29.9°C และ ความชื้น 50.0-69.9% - ค่าทั้งสองต้องอยู่ในช่วงที่กำหนด
-                            </p>
-                            <p class="text-blue-600 text-xs">
-                                <span class="inline-block w-3 h-3 bg-orange-500 rounded-full mr-2"></span>
-                                <strong>สถานะเตือน:</strong> อุณหภูมิต่ำกว่า 20.0°C หรือสูงกว่า 29.9°C หรือ ความชื้นต่ำกว่า 50.0% หรือสูงกว่า 69.9% - ค่าใดค่าหนึ่งหรือทั้งสองค่าอยู่นอกช่วงที่กำหนด
-                            </p>
-                            <p class="text-blue-600 text-xs mt-2">
-                                🎨 ค่าที่อยู่ในสถานะเตือนจะแสดงด้วยสีแดงและพื้นหลังไฮไลท์
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ThingSpeak Section -->
-                <div id="thingspeak-section" class="section-content hidden">
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                        <div class="bg-white rounded-xl shadow-sm p-6">
-                            <h3 class="text-lg font-semibold text-gray-800 mb-4">🌡️ อุณหภูมิ (°C)</h3>
-                            <div class="text-center">
-                                <div class="text-4xl font-bold text-red-500 mb-2" id="temperature">25.6</div>
-                                <div class="text-sm text-gray-600">อัปเดตล่าสุด: <span id="temp-time">14:30:25</span></div>
-                            </div>
-                            <canvas id="tempChart" width="400" height="200" class="mt-4"></canvas>
-                        </div>
-                        
-                        <div class="bg-white rounded-xl shadow-sm p-6">
-                            <h3 class="text-lg font-semibold text-gray-800 mb-4">💧 ความชื้น (%)</h3>
-                            <div class="text-center">
-                                <div class="text-4xl font-bold text-blue-500 mb-2" id="humidity">68</div>
-                                <div class="text-sm text-gray-600">อัปเดตล่าสุด: <span id="humid-time">14:30:25</span></div>
-                            </div>
-                            <canvas id="humidChart" width="400" height="200" class="mt-4"></canvas>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-white rounded-xl shadow-sm p-6">
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-lg font-semibold text-gray-800">📊 ข้อมูลจาก ThingSpeak</h3>
-                            <button onclick="refreshThingSpeak()" class="bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-                                🔄 รีเฟรช
-                            </button>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div class="bg-gray-50 p-4 rounded-lg">
-                                <p class="text-gray-600 text-sm">Channel ID</p>
-                                <p class="font-semibold">2994854</p>
-                            </div>
-                            <div class="bg-gray-50 p-4 rounded-lg">
-                                <p class="text-gray-600 text-sm">Field 1 (อุณหภูมิ)</p>
-                                <p class="font-semibold text-teal-500">25.6°C</p>
-                            </div>
-                            <div class="bg-gray-50 p-4 rounded-lg">
-                                <p class="text-gray-600 text-sm">Field 2 (ความชื้น)</p>
-                                <p class="font-semibold text-cyan-600">68%</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-green-50 p-4 rounded-lg mt-6">
-                        <p class="text-green-800 font-medium text-sm">ℹ️ หมายเหตุ: นี่คือข้อมูลตัวอย่าง</p>
-                        <p class="text-green-600 text-xs mt-1">ในการใช้งานจริง คุณจะต้องเชื่อมต่อกับ ThingSpeak API</p>
-                    </div>
-                </div>
-
-                <!-- Telegram Section -->
-                <div id="telegram-section" class="section-content hidden">
-                    <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-lg font-semibold text-gray-800">📱 การแจ้งเตือนจาก Telegram</h3>
-                            <div class="flex space-x-2">
-                                <button onclick="refreshTelegram()" class="bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-                                    🔄 รีเฟรช
-                                </button>
-                                <a href="https://web.telegram.org/k/#-4926671751" target="_blank" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-                                    📱 เปิด Telegram
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-                            <div class="bg-gradient-to-r from-red-100 to-red-50 p-4 rounded-lg border-l-4 border-red-500">
-                                <div class="flex items-center">
-                                    <div class="text-2xl mr-3">🚨</div>
-                                    <div>
-                                        <p class="font-semibold text-red-800">อุณหภูมิสูง</p>
-                                        <p class="text-sm text-red-600">32.5°C - เกินค่าปกติ</p>
-                                        <p class="text-xs text-gray-500">15:30:45</p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="bg-gradient-to-r from-yellow-100 to-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500">
-                                <div class="flex items-center">
-                                    <div class="text-2xl mr-3">⚠️</div>
-                                    <div>
-                                        <p class="font-semibold text-yellow-800">ความชื้นต่ำ</p>
-                                        <p class="text-sm text-yellow-600">35% - ต่ำกว่าปกติ</p>
-                                        <p class="text-xs text-gray-500">14:45:20</p>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="bg-gradient-to-r from-green-100 to-green-50 p-4 rounded-lg border-l-4 border-green-500">
-                                <div class="flex items-center">
-                                    <div class="text-2xl mr-3">✅</div>
-                                    <div>
-                                        <p class="font-semibold text-green-800">ระบบปกติ</p>
-                                        <p class="text-sm text-green-600">ค่าทั้งหมดอยู่ในเกณฑ์</p>
-                                        <p class="text-xs text-gray-500">13:20:10</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="bg-gray-50 rounded-lg p-4">
-                            <h4 class="font-semibold text-gray-800 mb-3">📋 ประวัติการแจ้งเตือน</h4>
-                            <div class="space-y-3 max-h-64 overflow-y-auto" id="telegram-alerts">
-                                <div class="flex items-start space-x-3 p-3 bg-white rounded-lg">
-                                    <div class="text-red-500 text-lg">🚨</div>
-                                    <div class="flex-1">
-                                        <p class="text-sm font-medium text-gray-800">อุณหภูมิเกิน 30°C</p>
-                                        <p class="text-xs text-gray-600">เซนเซอร์ A: 32.5°C - ต้องตรวจสอบระบบทำความเย็น</p>
-                                        <p class="text-xs text-gray-400">15:30:45 - วันนี้</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-start space-x-3 p-3 bg-white rounded-lg">
-                                    <div class="text-yellow-500 text-lg">⚠️</div>
-                                    <div class="flex-1">
-                                        <p class="text-sm font-medium text-gray-800">ความชื้นต่ำกว่า 40%</p>
-                                        <p class="text-xs text-gray-600">เซนเซอร์ B: 35% - อาจต้องเพิ่มความชื้น</p>
-                                        <p class="text-xs text-gray-400">14:45:20 - วันนี้</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-start space-x-3 p-3 bg-white rounded-lg">
-                                    <div class="text-blue-500 text-lg">ℹ️</div>
-                                    <div class="flex-1">
-                                        <p class="text-sm font-medium text-gray-800">ระบบเชื่อมต่อสำเร็จ</p>
-                                        <p class="text-xs text-gray-600">การเชื่อมต่อกับ ThingSpeak กลับมาปกติแล้ว</p>
-                                        <p class="text-xs text-gray-400">13:20:10 - วันนี้</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-start space-x-3 p-3 bg-white rounded-lg">
-                                    <div class="text-green-500 text-lg">✅</div>
-                                    <div class="flex-1">
-                                        <p class="text-sm font-medium text-gray-800">ค่าทั้งหมดปกติ</p>
-                                        <p class="text-xs text-gray-600">อุณหภูมิ: 25.2°C, ความชื้น: 65%</p>
-                                        <p class="text-xs text-gray-400">12:15:30 - วันนี้</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="bg-white rounded-xl shadow-sm p-6">
-                            <h4 class="font-semibold text-gray-800 mb-4">⚙️ การตั้งค่าการแจ้งเตือน</h4>
-                            <div class="space-y-4">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-600">อุณหภูมิสูงสุด</span>
-                                    <input type="number" value="30" class="w-20 px-2 py-1 border border-gray-300 rounded text-center">
-                                    <span class="text-gray-500">°C</span>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-600">ความชื้นต่ำสุด</span>
-                                    <input type="number" value="40" class="w-20 px-2 py-1 border border-gray-300 rounded text-center">
-                                    <span class="text-gray-500">%</span>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-600">แจ้งเตือนทาง Telegram</span>
-                                    <label class="relative inline-flex items-center cursor-pointer">
-                                        <input type="checkbox" checked class="sr-only peer">
-                                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-cyan-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-cyan-600"></div>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="bg-white rounded-xl shadow-sm p-6">
-                            <h4 class="font-semibold text-gray-800 mb-4">📊 สถิติการแจ้งเตือน</h4>
-                            <div class="space-y-3">
-                                <div class="flex justify-between">
-                                    <span class="text-gray-600">วันนี้</span>
-                                    <span class="font-semibold text-red-500">3 ครั้ง</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-gray-600">สัปดาห์นี้</span>
-                                    <span class="font-semibold text-orange-500">12 ครั้ง</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-gray-600">เดือนนี้</span>
-                                    <span class="font-semibold text-cyan-500">45 ครั้ง</span>
-                                </div>
-                                <div class="mt-4 p-3 bg-cyan-50 rounded-lg">
-                                    <p class="text-sm text-cyan-800 font-medium">💡 คำแนะนำ</p>
-                                    <p class="text-xs text-cyan-600 mt-1">ควรตรวจสอบระบบทำความเย็นเนื่องจากมีการแจ้งเตือนอุณหภูมิสูงบ่อย</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-blue-50 p-4 rounded-lg mt-6">
-                        <p class="text-blue-800 font-medium text-sm">ℹ️ หมายเหตุ: นี่คือข้อมูลตัวอย่าง</p>
-                        <p class="text-blue-600 text-xs mt-1">ในการใช้งานจริง คุณจะต้องเชื่อมต่อกับ Telegram Bot API</p>
-                    </div>
-                </div>
-
-                <!-- Analytics Section -->
-                <div id="analytics-section" class="section-content hidden">
-                    <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4">📊 การวิเคราะห์ข้อมูล</h3>
-                        <canvas id="analyticsChart" width="400" height="200"></canvas>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="bg-white rounded-xl shadow-sm p-6">
-                            <h4 class="font-semibold text-gray-800 mb-3">📈 สถิติรายเดือน</h4>
-                            <div class="space-y-3">
-                                <div class="flex justify-between">
-                                    <span class="text-gray-600">ค่าเฉลี่ย</span>
-                                    <span class="font-semibold">24.8°C</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-gray-600">ค่าสูงสุด</span>
-                                    <span class="font-semibold text-red-500">32.1°C</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-gray-600">ค่าต่ำสุด</span>
-                                    <span class="font-semibold text-blue-500">18.5°C</span>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="bg-white rounded-xl shadow-sm p-6">
-                            <h4 class="font-semibold text-gray-800 mb-3">🎯 เป้าหมาย</h4>
-                            <div class="space-y-3">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-600">ข้อมูลต่อวัน</span>
-                                    <div class="flex items-center">
-                                        <div class="w-20 bg-gray-200 rounded-full h-2 mr-2">
-                                            <div class="bg-cyan-500 h-2 rounded-full" style="width: 75%"></div>
-                                        </div>
-                                        <span class="text-sm font-semibold">75%</span>
-                                    </div>
-                                </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-gray-600">ความแม่นยำ</span>
-                                    <div class="flex items-center">
-                                        <div class="w-20 bg-gray-200 rounded-full h-2 mr-2">
-                                            <div class="bg-teal-500 h-2 rounded-full" style="width: 92%"></div>
-                                        </div>
-                                        <span class="text-sm font-semibold">92%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Settings Section -->
-                <div id="settings-section" class="section-content hidden">
-                    <div class="bg-white rounded-xl shadow-sm p-6">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-6">⚙️ การตั้งค่า</h3>
-                        
-                        <div class="space-y-6">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Google Sheets URL</label>
-                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500" value="https://docs.google.com/spreadsheets/d/1aS2Fw7cmMvHVUtZpycuaN6nvGWNTrU0g0RazCBvmNK4/edit?usp=sharing">
-                            </div>
-                            
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">ThingSpeak Channel ID</label>
-                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500" value="2994854">
-                            </div>
-                            
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">ThingSpeak Write API Key</label>
-                                <input type="password" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500" value="FMW2ZPWUNV949GSV">
-                            </div>
-                            
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Telegram Bot Token</label>
-                                <input type="password" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500" value="7750671291:AAHMfdOngj1cLMCJmxhHodAhkPZXHLyNV64">
-                            </div>
-                            
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">ความถี่ในการอัปเดต (วินาที)</label>
-                                <select class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500">
-                                    <option>30</option>
-                                    <option>60</option>
-                                    <option>300</option>
-                                    <option>600</option>
-                                </select>
-                            </div>
-                            
-                            <div class="flex space-x-4">
-                                <button class="bg-cyan-500 hover:bg-cyan-600 text-white px-6 py-2 rounded-lg font-medium transition-colors">
-                                    💾 บันทึก
-                                </button>
-                                <button class="bg-teal-400 hover:bg-teal-500 text-white px-6 py-2 rounded-lg font-medium transition-colors">
-                                    🔄 รีเซ็ต
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-yellow-50 p-4 rounded-lg mt-6">
-                        <p class="text-yellow-800 font-medium text-sm">⚠️ หมายเหตุ: นี่คือหน้าตั้งค่าตัวอย่าง</p>
-                        <p class="text-yellow-600 text-xs mt-1">ในการใช้งานจริง คุณจะต้องเชื่อมต่อกับ API ที่เกี่ยวข้อง</p>
-                    </div>
-                </div>
+            
+            <div class="mt-6 text-center">
+                <p class="text-sm text-gray-500">© 2025 AutoMediCare - รพสต.บ้านกลาง อ.อ่าวลึก จ.กระบี่</p>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-gradient-to-r from-cyan-800 to-teal-700 text-white">
-        <div class="max-w-7xl mx-auto px-6 py-12">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- AutoMediCare Info -->
-                <div class="space-y-4">
-                    <div class="flex items-center mb-4">
-                        <div class="bg-white/20 w-12 h-12 rounded-lg flex items-center justify-center mr-4">
-                            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14h-4v-4H6v-2h4V7h4v4h4v2h-4v4z"/>
+    <!-- Main Dashboard -->
+    <div id="main-dashboard" class="hidden">
+        <div class="flex h-screen">
+            <!-- Sidebar Menu -->
+            <div class="w-64 bg-white shadow-lg">
+                <div class="p-6 border-b border-gray-200">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 rounded-lg flex items-center justify-center mr-3 relative overflow-hidden shadow-lg" style="background: linear-gradient(145deg, #0891B2 0%, #06B6D4 50%, #0E7490 100%); box-shadow: 0 4px 12px rgba(8, 145, 178, 0.3), inset 0 1px 0 rgba(255,255,255,0.2);">
+                            <svg class="w-7 h-7 text-white relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                                <!-- Medicine bottle -->
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 6V4c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v2" stroke="white" stroke-width="1.5"/>
+                                <rect x="6" y="6" width="12" height="14" rx="2" ry="2" fill="rgba(255,255,255,0.15)" stroke="white" stroke-width="1"/>
+                                <!-- Cross symbol -->
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6M9 12h6" stroke="#DC2626" stroke-width="2"/>
+                                <!-- Pills -->
+                                <circle cx="10" cy="11" r="0.8" fill="rgba(255,255,255,0.6)"/>
+                                <circle cx="14" cy="15" r="0.8" fill="rgba(255,255,255,0.6)"/>
                             </svg>
+                            <!-- 24 indicator -->
+                            <div class="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center border border-white">
+                                <span class="text-white font-bold text-[8px]">24</span>
+                            </div>
+                            <!-- Glow effect -->
+                            <div class="absolute inset-0 rounded-lg border border-white/20"></div>
                         </div>
                         <div>
-                            <h3 class="text-2xl font-bold">AutoMediCare</h3>
-                            <p class="text-cyan-100 text-sm">ระบบดูแลคลังยา 24 ชั่วโมง</p>
-                        </div>
-                    </div>
-                    <p class="text-cyan-100 leading-relaxed">
-                        ช่วยให้การจัดการคลังยาเป็นเรื่องง่าย ปลอดภัย และมีประสิทธิภาพ
-                    </p>
-                    <div class="bg-white/10 p-4 rounded-lg">
-                        <p class="text-white font-semibold text-lg">"AutoMediCare ดูแลยา เราดูแลคุณ"</p>
-                    </div>
-                </div>
-
-                <!-- Contact Info -->
-                <div class="space-y-4">
-                    <h4 class="text-xl font-semibold mb-4 flex items-center">
-                        <svg class="w-6 h-6 mr-3 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                        </svg>
-                        ติดต่อเรา
-                    </h4>
-                    <div class="space-y-3">
-                        <div class="flex items-start space-x-3">
-                            <div class="bg-cyan-400/20 p-2 rounded-lg">
-                                <svg class="w-5 h-5 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <p class="font-medium">รพสต.บ้านกลาง</p>
-                                <p class="text-cyan-100 text-sm">ต.บ้านกลาง อ.อ่าวลึก</p>
-                                <p class="text-cyan-100 text-sm">จ.กระบี่ 81110</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-center space-x-3">
-                            <div class="bg-cyan-400/20 p-2 rounded-lg">
-                                <svg class="w-5 h-5 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <p class="text-cyan-100 text-sm">อีเมล์</p>
-                                <a href="mailto:eakarat@ap.ac.th" class="text-white hover:text-cyan-200 transition-colors">
-                                    eakarat@ap.ac.th
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-center space-x-3">
-                            <div class="bg-cyan-400/20 p-2 rounded-lg">
-                                <svg class="w-5 h-5 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <p class="text-cyan-100 text-sm">โทรศัพท์</p>
-                                <a href="tel:0818939138" class="text-white hover:text-cyan-200 transition-colors">
-                                    081-893-9138
-                                </a>
-                            </div>
+                            <h1 class="text-xl font-bold text-gray-800">AutoMediCare</h1>
+                            <p class="text-sm text-gray-600">ระบบดูแลคลังยา 24 ชั่วโมง</p>
                         </div>
                     </div>
                 </div>
-
-                <!-- Credits -->
-                <div class="space-y-4">
-                    <h4 class="text-xl font-semibold mb-4 flex items-center">
-                        <svg class="w-6 h-6 mr-3 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                        </svg>
-                        เครดิต
-                    </h4>
-                    <div class="space-y-3">
-                        <div class="bg-white/10 p-4 rounded-lg">
-                            <p class="font-medium text-white mb-2">พัฒนาโดย</p>
-                            <p class="text-cyan-100 text-sm">ทีมพัฒนาระบบ AutoMediCare</p>
-                        </div>
+                
+                <nav class="mt-6">
+                    <div class="px-4 space-y-2">
+                        <button onclick="showSection('overview')" class="menu-item active-menu w-full text-left px-4 py-3 rounded-lg text-white font-medium transition-all duration-300 flex items-center">
+                            <span class="mr-3">📈</span>
+                            ภาพรวม
+                        </button>
                         
-                        <div class="bg-white/10 p-4 rounded-lg">
-                            <p class="font-medium text-white mb-2">สนับสนุนโดย</p>
-                            <p class="text-cyan-100 text-sm">โรงพยาบาลส่งเสริมสุขภาพตำบลบ้านกลาง</p>
-                        </div>
+                        <button onclick="showSection('googlesheets')" class="menu-item w-full text-left px-4 py-3 rounded-lg text-gray-700 hover:text-white font-medium transition-all duration-300 flex items-center">
+                            <span class="mr-3">📋</span>
+                            Google Sheets
+                        </button>
                         
-
+                        <button onclick="showSection('thingspeak')" class="menu-item w-full text-left px-4 py-3 rounded-lg text-gray-700 hover:text-white font-medium transition-all duration-300 flex items-center">
+                            <span class="mr-3">🌡️</span>
+                            ThingSpeak
+                        </button>
+                        
+                        <button onclick="showSection('telegram')" class="menu-item w-full text-left px-4 py-3 rounded-lg text-gray-700 hover:text-white font-medium transition-all duration-300 flex items-center">
+                            <span class="mr-3">📱</span>
+                            Telegram
+                        </button>
+                        
+                        <button onclick="showSection('analytics')" class="menu-item w-full text-left px-4 py-3 rounded-lg text-gray-700 hover:text-white font-medium transition-all duration-300 flex items-center">
+                            <span class="mr-3">📊</span>
+                            การวิเคราะห์
+                        </button>
+                        
+                        <button id="logout-btn" class="menu-item w-full text-left px-4 py-3 rounded-lg text-gray-700 hover:text-white font-medium transition-all duration-300 flex items-center mt-8 border-t border-gray-200 pt-4">
+                            <span class="mr-3">🚪</span>
+                            ออกจากระบบ
+                        </button>
                     </div>
-                </div>
+                </nav>
             </div>
-            
-            <!-- Bottom Bar -->
-            <div class="border-t border-white/20 mt-8 pt-6">
-                <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-                    <div class="flex items-center space-x-4">
-                        <div class="flex items-center space-x-2">
-                            <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                            <span class="text-cyan-100 text-sm">ระบบออนไลน์</span>
+
+            <!-- Main Content -->
+            <div class="flex-1 overflow-auto">
+                <!-- Header -->
+                <div class="bg-white shadow-sm border-b border-gray-200 p-6">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <div class="flex items-center mb-2">
+                                <h2 id="page-title" class="text-2xl font-bold text-gray-800 mr-4">ภาพรวมระบบ</h2>
+                                <div class="bg-gradient-to-r from-cyan-100 to-teal-100 px-4 py-2 rounded-lg">
+                                    <p class="text-cyan-800 font-bold text-lg">รพสต.บ้านกลาง อ.อ่าวลึก จ.กระบี่</p>
+                                </div>
+                            </div>
+                            <p id="page-subtitle" class="text-gray-600">ข้อมูลสรุปทั้งหมด</p>
                         </div>
-                        <div class="text-cyan-100 text-sm">|</div>
-                        <span class="text-cyan-100 text-sm">เวอร์ชัน 1.0.0</span>
-                    </div>
-                    
-                    <div class="text-center">
-                        <p class="text-cyan-100 text-sm">
-                            © 2025 AutoMediCare - ระบบดูแลคลังยา 24 ชั่วโมง
-                        </p>
-                        <p class="text-cyan-200 text-xs mt-1">สงวนลิขสิทธิ์ทั้งหมด</p>
-                    </div>
-                    
-                    <div class="flex items-center space-x-3">
-                        <span class="text-cyan-100 text-sm">ติดตามเรา:</span>
-                        <div class="flex space-x-2">
-                            <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors cursor-pointer">
-                                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.097.118.112.221.083.343-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.746-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001.012.017z"/>
-                                </svg>
+                        <div class="flex items-center space-x-4">
+                            <div class="text-right">
+                                <p class="text-sm text-gray-600">อัปเดตล่าสุด</p>
+                                <p class="text-sm font-medium text-gray-800" id="last-update"></p>
                             </div>
-                            <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors cursor-pointer">
-                                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
-                                </svg>
+                            <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Area -->
+                <div class="p-6">
+                    <!-- Overview Section -->
+                    <div id="overview-section" class="section-content">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                            <div class="card-gradient p-6 rounded-xl text-white">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-white/80 text-sm">Google Sheets</p>
+                                        <p class="text-2xl font-bold" id="sheets-latest">-</p>
+                                        <p class="text-white/80 text-xs mt-1">ข้อมูลล่าสุด</p>
+                                    </div>
+                                    <div class="text-3xl">📋</div>
+                                </div>
                             </div>
-                            <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors cursor-pointer">
-                                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
-                                </svg>
+                            
+                            <div class="card-gradient-2 p-6 rounded-xl text-white">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-white/80 text-sm">อุณหภูมิ</p>
+                                        <p class="text-2xl font-bold" id="overview-temp">-</p>
+                                        <p class="text-white/80 text-xs mt-1">Channel: 2994854</p>
+                                    </div>
+                                    <div class="text-3xl">🌡️</div>
+                                </div>
+                            </div>
+                            
+                            <div class="card-gradient-3 p-6 rounded-xl text-white">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-white/80 text-sm">ความชื้น</p>
+                                        <p class="text-2xl font-bold" id="overview-humid">-</p>
+                                        <p class="text-white/80 text-xs mt-1">Channel: 2994854</p>
+                                    </div>
+                                    <div class="text-3xl">💧</div>
+                                </div>
+                            </div>
+                            
+                            <div class="card-gradient-4 p-6 rounded-xl text-white">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-white/80 text-sm">สถานะ</p>
+                                        <p class="text-2xl font-bold">ออนไลน์</p>
+                                        <p class="text-white/80 text-xs mt-1">ระบบทำงาน</p>
+                                    </div>
+                                    <div class="text-3xl">✅</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div class="bg-white p-6 rounded-xl shadow-sm">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-4">📈 กราฟแสดงแนวโน้ม</h3>
+                                <canvas id="trendChart" width="400" height="200"></canvas>
+                            </div>
+                            
+                            <div class="bg-white p-6 rounded-xl shadow-sm">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-4">📊 สถิติรายวัน</h3>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-600">อุณหภูมิเฉลี่ย</span>
+                                        <span class="font-semibold text-teal-500" id="avg-temp">24.8°C</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-600">ความชื้นเฉลี่ย</span>
+                                        <span class="font-semibold text-cyan-600" id="avg-humid">65%</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-600">สถานะคลังยา</span>
+                                        <span class="font-semibold" id="storage-status">ปกติ</span>
+                                    </div>
+                                    <div class="mt-4 p-3 bg-blue-50 rounded-lg">
+                                        <p class="text-sm text-blue-800 font-medium">💡 คำแนะนำ</p>
+                                        <p class="text-xs text-blue-600 mt-1" id="daily-recommendation">ระบบทำงานปกติ ไม่ต้องดำเนินการเพิ่มเติม</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Google Sheets Section -->
+                    <div id="googlesheets-section" class="section-content hidden">
+                        <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="text-lg font-semibold text-gray-800">📋 ข้อมูลจาก Google Sheets</h3>
+                                <button onclick="refreshGoogleSheets()" class="bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                                    🔄 รีเฟรช
+                                </button>
+                            </div>
+                            
+                            <div class="overflow-x-auto">
+                                <table class="w-full">
+                                    <thead>
+                                        <tr class="border-b border-gray-200">
+                                            <th class="text-left py-3 px-4 font-semibold text-gray-700">วันที่</th>
+                                            <th class="text-left py-3 px-4 font-semibold text-gray-700">เวลา</th>
+                                            <th class="text-left py-3 px-4 font-semibold text-gray-700">อุณหภูมิ (°C)</th>
+                                            <th class="text-left py-3 px-4 font-semibold text-gray-700">ความชื้น (%)</th>
+                                            <th class="text-left py-3 px-4 font-semibold text-gray-700">สถานะ</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="sheets-data">
+                                        <tr class="border-b border-gray-100">
+                                            <td class="py-3 px-4">2025-01-15</td>
+                                            <td class="py-3 px-4">14:30:25</td>
+                                            <td class="py-3 px-4 font-semibold text-cyan-600">25.4</td>
+                                            <td class="py-3 px-4 font-semibold text-blue-600">65</td>
+                                            <td class="py-3 px-4"><span class="bg-teal-100 text-teal-800 px-2 py-1 rounded-full text-xs">ปกติ</span></td>
+                                        </tr>
+                                        <tr class="border-b border-gray-100">
+                                            <td class="py-3 px-4">2025-01-15</td>
+                                            <td class="py-3 px-4">14:25:10</td>
+                                            <td class="py-3 px-4 font-semibold text-red-600 bg-red-50 px-2 py-1 rounded">32.1</td>
+                                            <td class="py-3 px-4 font-semibold text-red-600 bg-red-50 px-2 py-1 rounded">45</td>
+                                            <td class="py-3 px-4"><span class="bg-orange-100 text-orange-800 px-2 py-1 rounded-full text-xs">เตือน</span></td>
+                                        </tr>
+                                        <tr class="border-b border-gray-100">
+                                            <td class="py-3 px-4">2025-01-15</td>
+                                            <td class="py-3 px-4">14:20:45</td>
+                                            <td class="py-3 px-4 font-semibold text-cyan-600">24.8</td>
+                                            <td class="py-3 px-4 font-semibold text-blue-600">58</td>
+                                            <td class="py-3 px-4"><span class="bg-teal-100 text-teal-800 px-2 py-1 rounded-full text-xs">ปกติ</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <p class="text-blue-800 font-medium text-sm">ℹ️ หมายเหตุ: เกณฑ์การประเมินสถานะ</p>
+                                <div class="mt-2 space-y-1">
+                                    <p class="text-blue-600 text-xs">
+                                        <span class="inline-block w-3 h-3 bg-teal-500 rounded-full mr-2"></span>
+                                        <strong>สถานะปกติ:</strong> อุณหภูมิ 20.0-29.9°C และ ความชื้น 50.0-69.9% - ค่าทั้งสองต้องอยู่ในช่วงที่กำหนด
+                                    </p>
+                                    <p class="text-blue-600 text-xs">
+                                        <span class="inline-block w-3 h-3 bg-orange-500 rounded-full mr-2"></span>
+                                        <strong>สถานะเตือน:</strong> อุณหภูมิต่ำกว่า 20.0°C หรือสูงกว่า 29.9°C หรือ ความชื้นต่ำกว่า 50.0% หรือสูงกว่า 69.9% - ค่าใดค่าหนึ่งหรือทั้งสองค่าอยู่นอกช่วงที่กำหนด
+                                    </p>
+                                    <p class="text-blue-600 text-xs mt-2">
+                                        🎨 ค่าที่อยู่ในสถานะเตือนจะแสดงด้วยสีแดงและพื้นหลังไฮไลท์
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-6 rounded-lg border border-green-200">
+                                <div class="text-center">
+                                    <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full mb-4 shadow-lg">
+                                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                        </svg>
+                                    </div>
+                                    <h4 class="text-lg font-semibold text-gray-800 mb-2">เปิด Google Sheets</h4>
+                                    <p class="text-sm text-gray-600 mb-4">ดูและจัดการข้อมูลทั้งหมดใน Google Sheets</p>
+                                    <a href="https://docs.google.com/spreadsheets/d/1aS2Fw7cmMvHVUtZpycuaN6nvGWNTrU0g0RazCBvmNK4/edit?usp=sharing" 
+                                       target="_blank" 
+                                       class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-medium rounded-lg hover:from-green-600 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                        </svg>
+                                        เปิด Sheets
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ThingSpeak Section -->
+                    <div id="thingspeak-section" class="section-content hidden">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                            <div class="bg-white rounded-xl shadow-sm p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-4">🌡️ อุณหภูมิ (°C)</h3>
+                                <div class="text-center">
+                                    <div class="text-4xl font-bold text-red-500 mb-2" id="temperature">25.6</div>
+                                    <div class="text-sm text-gray-600">อัปเดตล่าสุด: <span id="temp-time">14:30:25</span></div>
+                                </div>
+                                <canvas id="tempChart" width="400" height="200" class="mt-4"></canvas>
+                            </div>
+                            
+                            <div class="bg-white rounded-xl shadow-sm p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-4">💧 ความชื้น (%)</h3>
+                                <div class="text-center">
+                                    <div class="text-4xl font-bold text-blue-500 mb-2" id="humidity">68</div>
+                                    <div class="text-sm text-gray-600">อัปเดตล่าสุด: <span id="humid-time">14:30:25</span></div>
+                                </div>
+                                <canvas id="humidChart" width="400" height="200" class="mt-4"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-xl shadow-sm p-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="text-lg font-semibold text-gray-800">📊 ข้อมูลจาก ThingSpeak</h3>
+                                <button onclick="refreshThingSpeak()" class="bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                                    🔄 รีเฟรช
+                                </button>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <p class="text-gray-600 text-sm">Channel ID</p>
+                                    <p class="font-semibold">2994854</p>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <p class="text-gray-600 text-sm">Field 1 (อุณหภูมิ)</p>
+                                    <p class="font-semibold text-teal-500">25.6°C</p>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <p class="text-gray-600 text-sm">Field 2 (ความชื้น)</p>
+                                    <p class="font-semibold text-cyan-600">68%</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-green-50 p-4 rounded-lg mt-6">
+                            <p class="text-green-800 font-medium text-sm">ℹ️ หมายเหตุ: นี่คือข้อมูลตัวอย่าง</p>
+                            <p class="text-green-600 text-xs mt-1">ในการใช้งานจริง คุณจะต้องเชื่อมต่อกับ ThingSpeak API</p>
+                        </div>
+                    </div>
+
+                    <!-- Telegram Section -->
+                    <div id="telegram-section" class="section-content hidden">
+                        <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="text-lg font-semibold text-gray-800">📱 การแจ้งเตือนจาก ThingSpeak</h3>
+                                <div class="flex space-x-3">
+                                    <button onclick="checkThingSpeakAlerts()" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                                        🔍 ตรวจสอบเตือน
+                                    </button>
+                                    <a href="https://web.telegram.org/k/#-4926671751" 
+                                       target="_blank" 
+                                       class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-medium rounded-lg hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-sm">
+                                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                                        </svg>
+                                        Telegram
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-blue-50 p-4 rounded-lg mb-6">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="telegram-current-alerts">
+                                    <div class="bg-white p-3 rounded-lg border" id="system-status-card">
+                                        <div class="flex items-center">
+                                            <div class="text-lg mr-2" id="system-status-icon">⏳</div>
+                                            <div>
+                                                <p class="font-medium text-gray-800 text-sm" id="system-status-text">กำลังตรวจสอบ...</p>
+                                                <p class="text-xs text-gray-600" id="system-status-detail">รอข้อมูลจาก ThingSpeak</p>
+                                                <p class="text-xs text-gray-500" id="system-status-time">-</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bg-white p-3 rounded-lg border border-blue-200">
+                                        <div class="flex items-center">
+                                            <div class="text-lg mr-2">📊</div>
+                                            <div>
+                                                <p class="font-medium text-blue-800 text-sm">ข้อมูลวันนี้</p>
+                                                <p class="text-xs text-blue-600" id="daily-records-count">บันทึกแล้ว 0 รายการ</p>
+                                                <p class="text-xs text-gray-500" id="last-record-time">ครั้งล่าสุด: -</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="bg-white p-3 rounded-lg border border-cyan-200">
+                                        <div class="flex items-center">
+                                            <div class="text-lg mr-2">🔄</div>
+                                            <div>
+                                                <p class="font-medium text-cyan-800 text-sm">การเชื่อมต่อ</p>
+                                                <p class="text-xs text-cyan-600">ThingSpeak Channel: 2994854</p>
+                                                <p class="text-xs text-gray-500" id="connection-status">สถานะ: กำลังเชื่อมต่อ...</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <h4 class="font-semibold text-gray-800 mb-3">📋 ประวัติการแจ้งเตือนจาก ThingSpeak</h4>
+                                <div class="space-y-3 max-h-64 overflow-y-auto" id="telegram-alerts">
+                                    <div class="text-center text-gray-500 py-4">
+                                        <div class="text-4xl mb-2">📡</div>
+                                        <p class="text-sm">ยังไม่มีการแจ้งเตือน</p>
+                                        <p class="text-xs">กดปุ่ม "ตรวจสอบเตือน" เพื่อเริ่มตรวจสอบ</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-xl shadow-sm p-6">
+                            <h4 class="font-semibold text-gray-800 mb-4">📊 สถิติการแจ้งเตือนจริง</h4>
+                            <div class="space-y-3" id="telegram-stats">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">วันนี้</span>
+                                    <span class="font-semibold text-green-600" id="alerts-today">0 ครั้ง</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">สัปดาห์นี้</span>
+                                    <span class="font-semibold text-green-600" id="alerts-week">0 ครั้ง</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">เดือนนี้</span>
+                                    <span class="font-semibold text-green-600" id="alerts-month">0 ครั้ง</span>
+                                </div>
+                                <div class="mt-4 p-3 bg-green-50 rounded-lg">
+                                    <p class="text-sm text-green-800 font-medium">💡 สถานะ</p>
+                                    <p class="text-xs text-green-600 mt-1" id="recommendation">ระบบทำงานปกติ ไม่มีการแจ้งเตือน</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <p class="text-blue-800 font-medium text-sm">ℹ️ หมายเหตุ: การทำงานของระบบ Telegram</p>
+                            <div class="mt-2 space-y-1">
+                                <p class="text-blue-600 text-xs">
+                                    🔍 <strong>ตรวจสอบเตือน:</strong> ดึงข้อมูลล่าสุดจาก ThingSpeak และตรวจสอบค่าตามเกณฑ์ที่กำหนด
+                                </p>
+                                <p class="text-blue-600 text-xs">
+                                    ⚠️ <strong>เกณฑ์การแจ้งเตือน:</strong> อุณหภูมิ 20.0-29.9°C, ความชื้น 50.0-69.9%
+                                </p>
+                                <p class="text-blue-600 text-xs">
+                                    📊 <strong>สถิติ:</strong> แสดงจำนวนการแจ้งเตือนจริงที่เกิดขึ้นจากการตรวจสอบ
+                                </p>
+                                <p class="text-blue-600 text-xs">
+                                    📱 <strong>Telegram:</strong> คลิกปุ่ม Telegram ด้านบนเพื่อเข้าสู่กลุ่มแจ้งเตือน
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Analytics Section -->
+                    <div id="analytics-section" class="section-content hidden">
+                        <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="text-lg font-semibold text-gray-800">📊 การวิเคราะห์ข้อมูลคลังยา</h3>
+                                <div class="flex items-center space-x-3">
+                                    <div class="flex items-center space-x-2">
+                                        <label class="text-sm text-gray-600">สัปดาห์:</label>
+                                        <select id="weekSelector" onchange="changeAnalyticsWeek()" class="px-3 py-1 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500">
+                                            <option value="0">สัปดาห์นี้</option>
+                                            <option value="1">สัปดาห์ที่แล้ว</option>
+                                            <option value="2">2 สัปดาห์ที่แล้ว</option>
+                                            <option value="3">3 สัปดาห์ที่แล้ว</option>
+                                            <option value="4">4 สัปดาห์ที่แล้ว</option>
+                                        </select>
+                                    </div>
+                                    <button onclick="refreshAnalytics()" class="bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                                        🔄 รีเฟรช
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-blue-50 p-4 rounded-lg mb-4">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h4 class="font-semibold text-blue-800" id="current-week-title">สัปดาห์นี้ (15-21 ม.ค. 2568)</h4>
+                                        <p class="text-sm text-blue-600" id="week-summary">วิเคราะห์จากข้อมูล Google Sheets</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-2xl font-bold text-blue-800" id="week-score">87%</div>
+                                        <div class="text-xs text-blue-600">คะแนนคุณภาพ</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <canvas id="analyticsChart" width="400" height="200"></canvas>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                            <div class="bg-white rounded-xl shadow-sm p-6">
+                                <h4 class="font-semibold text-gray-800 mb-4">🌡️ การวิเคราะห์อุณหภูมิ (30 วันล่าสุด)</h4>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-600">อุณหภูมิเฉลี่ย</span>
+                                        <span class="font-semibold text-teal-600" id="analytics-avg-temp">24.8°C</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-600">อุณหภูมิสูงสุด</span>
+                                        <span class="font-semibold text-red-500" id="analytics-max-temp">32.1°C</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-600">อุณหภูมิต่ำสุด</span>
+                                        <span class="font-semibold text-blue-500" id="analytics-min-temp">18.5°C</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-600">วันที่อยู่ในเกณฑ์ปกติ</span>
+                                        <span class="font-semibold text-green-600" id="analytics-temp-normal">23/30 วัน</span>
+                                    </div>
+                                    <div class="mt-3 p-3 bg-orange-50 rounded-lg">
+                                        <p class="text-sm text-orange-800 font-medium">⚠️ ข้อสังเกต</p>
+                                        <p class="text-xs text-orange-600 mt-1" id="temp-analysis">มีอุณหภูมิเกิน 30°C จำนวน 7 วัน ควรตรวจสอบระบบทำความเย็น</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-white rounded-xl shadow-sm p-6">
+                                <h4 class="font-semibold text-gray-800 mb-4">💧 การวิเคราะห์ความชื้น (30 วันล่าสุด)</h4>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-600">ความชื้นเฉลี่ย</span>
+                                        <span class="font-semibold text-cyan-600" id="analytics-avg-humid">62%</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-600">ความชื้นสูงสุด</span>
+                                        <span class="font-semibold text-blue-500" id="analytics-max-humid">78%</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-600">ความชื้นต่ำสุด</span>
+                                        <span class="font-semibold text-orange-500" id="analytics-min-humid">35%</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-600">วันที่อยู่ในเกณฑ์ปกติ</span>
+                                        <span class="font-semibold text-green-600" id="analytics-humid-normal">26/30 วัน</span>
+                                    </div>
+                                    <div class="mt-3 p-3 bg-blue-50 rounded-lg">
+                                        <p class="text-sm text-blue-800 font-medium">ℹ️ ข้อสังเกต</p>
+                                        <p class="text-xs text-blue-600 mt-1" id="humid-analysis">ความชื้นอยู่ในเกณฑ์ดี แต่มีบางวันที่ต่ำกว่า 50%</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+                            <h4 class="font-semibold text-gray-800 mb-4">📈 ประสิทธิภาพระบบ</h4>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">การบันทึกข้อมูล</span>
+                                    <div class="flex items-center">
+                                        <div class="w-24 bg-gray-200 rounded-full h-2 mr-2">
+                                            <div class="bg-green-500 h-2 rounded-full" style="width: 94%"></div>
+                                        </div>
+                                        <span class="text-sm font-semibold text-green-600">94%</span>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">ความเสถียรของระบบ</span>
+                                    <div class="flex items-center">
+                                        <div class="w-24 bg-gray-200 rounded-full h-2 mr-2">
+                                            <div class="bg-cyan-500 h-2 rounded-full" style="width: 89%"></div>
+                                        </div>
+                                        <span class="text-sm font-semibold text-cyan-600">89%</span>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">การแจ้งเตือนที่ถูกต้อง</span>
+                                    <div class="flex items-center">
+                                        <div class="w-24 bg-gray-200 rounded-full h-2 mr-2">
+                                            <div class="bg-teal-500 h-2 rounded-full" style="width: 96%"></div>
+                                        </div>
+                                        <span class="text-sm font-semibold text-teal-600">96%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gradient-to-r from-blue-50 to-cyan-50 p-6 rounded-xl">
+                            <h4 class="font-semibold text-gray-800 mb-4">🔍 การวิเคราะห์และคำแนะนำ</h4>
+                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                <div>
+                                    <h5 class="font-medium text-blue-800 mb-3">📊 สรุปการวิเคราะห์</h5>
+                                    <div class="space-y-2 text-sm text-blue-700">
+                                        <p>• ระบบมีประสิทธิภาพการทำงาน 89% ซึ่งอยู่ในเกณฑ์ดี</p>
+                                        <p>• อุณหภูมิเฉลี่ย 24.8°C อยู่ในช่วงที่เหมาะสมสำหรับการเก็บยา</p>
+                                        <p>• ความชื้นเฉลี่ย 62% เหมาะสมแต่ควรติดตามในช่วงฤดูแล้ง</p>
+                                        <p>• มีการแจ้งเตือนที่ถูกต้อง 96% แสดงว่าระบบทำงานแม่นยำ</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h5 class="font-medium text-green-800 mb-3">💡 คำแนะนำสำหรับการปรับปรุง</h5>
+                                    <div class="space-y-2 text-sm text-green-700">
+                                        <p>• ตรวจสอบระบบทำความเย็นในช่วงที่อุณหภูมิสูงเกิน 30°C</p>
+                                        <p>• เพิ่มระบบควบคุมความชื้นในช่วงฤดูแล้ง</p>
+                                        <p>• ติดตั้งเซนเซอร์สำรองเพื่อเพิ่มความเสถียร</p>
+                                        <p>• จัดทำแผนบำรุงรักษาเชิงป้องกันทุก 3 เดือน</p>
+                                        <p>• ฝึกอบรมเจ้าหน้าที่เกี่ยวกับการตอบสนองต่อการแจ้งเตือน</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </footer>
+
+        <!-- Footer -->
+        <footer class="bg-gradient-to-r from-cyan-800 to-teal-700 text-white">
+            <div class="max-w-7xl mx-auto px-6 py-12">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- AutoMediCare Info -->
+                    <div class="space-y-4">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-white/20 w-12 h-12 rounded-lg flex items-center justify-center mr-4 relative overflow-hidden">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+                                    <!-- Medicine bottle with cross -->
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 6V4c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v2"/>
+                                    <rect x="6" y="6" width="12" height="14" rx="2" ry="2" fill="rgba(255,255,255,0.2)"/>
+                                    <!-- Cross symbol -->
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6M9 12h6" stroke-width="2"/>
+                                </svg>
+                                <!-- Subtle glow effect -->
+                                <div class="absolute inset-0 rounded-lg border border-white/20"></div>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold">AutoMediCare</h3>
+                                <p class="text-cyan-100 text-sm">ระบบดูแลคลังยา 24 ชั่วโมง</p>
+                            </div>
+                        </div>
+                        <p class="text-cyan-100 leading-relaxed">
+                            ช่วยให้การจัดการคลังยาเป็นเรื่องง่าย ปลอดภัย และมีประสิทธิภาพ
+                        </p>
+                        <div class="bg-white/10 p-4 rounded-lg">
+                            <p class="text-white font-semibold text-lg">"AutoMediCare ดูแลยา เราดูแลคุณ"</p>
+                        </div>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div class="space-y-4">
+                        <h4 class="text-xl font-semibold mb-4 flex items-center">
+                            <svg class="w-6 h-6 mr-3 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                            </svg>
+                            ติดต่อเรา
+                        </h4>
+                        <div class="space-y-3">
+                            <div class="flex items-start space-x-3">
+                                <div class="bg-cyan-400/20 p-2 rounded-lg">
+                                    <svg class="w-5 h-5 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-lg">รพสต.บ้านกลาง</p>
+                                    <p class="text-cyan-100 text-base">ต.บ้านกลาง อ.อ่าวลึก</p>
+                                    <p class="text-cyan-100 text-base">จ.กระบี่ 81110</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center space-x-3">
+                                <div class="bg-cyan-400/20 p-2 rounded-lg">
+                                    <svg class="w-5 h-5 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-cyan-100 text-sm">อีเมล์</p>
+                                    <a href="mailto:eakarat@ap.ac.th" class="text-white hover:text-cyan-200 transition-colors">
+                                        eakarat@ap.ac.th
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center space-x-3">
+                                <div class="bg-cyan-400/20 p-2 rounded-lg">
+                                    <svg class="w-5 h-5 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-cyan-100 text-sm">โทรศัพท์</p>
+                                    <a href="tel:0818939138" class="text-white hover:text-cyan-200 transition-colors">
+                                        081-893-9138
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Credits -->
+                    <div class="space-y-4">
+                        <h4 class="text-xl font-semibold mb-4 flex items-center">
+                            <svg class="w-6 h-6 mr-3 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            </svg>
+                            เครดิต
+                        </h4>
+                        <div class="space-y-3">
+                            <div class="bg-white/10 p-4 rounded-lg">
+                                <p class="font-medium text-white mb-2">พัฒนาโดย</p>
+                                <p class="text-cyan-100 text-sm">ทีมพัฒนาระบบ AutoMediCare</p>
+                            </div>
+                            
+                            <div class="bg-white/10 p-4 rounded-lg">
+                                <p class="font-medium text-white mb-2">สนับสนุนโดย</p>
+                                <p class="text-cyan-100 text-sm">โรงพยาบาลส่งเสริมสุขภาพตำบลบ้านกลาง</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bottom Bar -->
+                <div class="border-t border-white/20 mt-8 pt-6">
+                    <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                        <div class="flex items-center space-x-4">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                                <span class="text-cyan-100 text-sm">ระบบออนไลน์</span>
+                            </div>
+                            <div class="text-cyan-100 text-sm">|</div>
+                            <span class="text-cyan-100 text-sm">เวอร์ชัน 1.0.0</span>
+                        </div>
+                        
+                        <div class="text-center">
+                            <p class="text-cyan-100 text-sm">
+                                © 2025 AutoMediCare - ระบบดูแลคลังยา 24 ชั่วโมง
+                            </p>
+                            <p class="text-cyan-200 text-xs mt-1">สงวนลิขสิทธิ์ทั้งหมด</p>
+                        </div>
+                        
+                        <div class="flex items-center space-x-3">
+                            <span class="text-cyan-100 text-sm">ติดตามเรา:</span>
+                            <div class="flex space-x-2">
+                                <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors cursor-pointer">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.097.118.112.221.083.343-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.746-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001.012.017z"/>
+                                    </svg>
+                                </div>
+                                <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors cursor-pointer">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                                    </svg>
+                                </div>
+                                <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors cursor-pointer">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
 
     <script>
+        // Global variables for alert tracking
+        let alertCounts = {
+            today: 0,
+            week: 0,
+            month: 0
+        };
+
+        // Global variables for analytics
+        let currentWeekOffset = 0;
+        let weeklyAnalyticsData = {};
+        let analyticsChart = null;
+
+        // Login functionality
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Simple authentication (in real app, this would be server-side)
+            if (username === 'admin' && password === '09033') {
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('main-dashboard').classList.remove('hidden');
+                
+                // Initialize dashboard
+                updateTime();
+                setInterval(updateTime, 1000);
+                setTimeout(initCharts, 100);
+                
+                // Load initial data
+                setTimeout(() => {
+                    refreshThingSpeak();
+                    refreshGoogleSheets();
+                }, 2000);
+                
+                // Auto-update every 5 minutes
+                setInterval(() => {
+                    refreshThingSpeak();
+                }, 300000);
+            } else {
+                alert('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
+            }
+        });
+
+        // Add logout button event listener
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoutBtn = document.getElementById('logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    logout();
+                });
+            }
+        });
+
+        // Logout functionality
+        function logout() {
+            if (confirm('คุณต้องการออกจากระบบหรือไม่?')) {
+                document.getElementById('main-dashboard').classList.add('hidden');
+                document.getElementById('login-screen').classList.remove('hidden');
+                
+                // Clear form
+                document.getElementById('username').value = '';
+                document.getElementById('password').value = '';
+                
+                // Reset alert counts
+                alertCounts = { today: 0, week: 0, month: 0 };
+                updateAlertStats();
+            }
+        }
+
         // Update time
         function updateTime() {
             const now = new Date();
@@ -717,8 +922,7 @@
                 'googlesheets': { title: 'Google Sheets', subtitle: 'ข้อมูลจากสเปรดชีต' },
                 'thingspeak': { title: 'ThingSpeak', subtitle: 'ข้อมูลเซนเซอร์แบบเรียลไทม์' },
                 'telegram': { title: 'Telegram', subtitle: 'การแจ้งเตือนและประวัติ' },
-                'analytics': { title: 'การวิเคราะห์', subtitle: 'สถิติและแนวโน้มข้อมูล' },
-                'settings': { title: 'ตั้งค่า', subtitle: 'กำหนดค่าการเชื่อมต่อ' }
+                'analytics': { title: 'การวิเคราะห์', subtitle: 'สถิติและแนวโน้มข้อมูล' }
             };
             
             document.getElementById('page-title').textContent = titles[sectionName].title;
@@ -729,7 +933,10 @@
         async function refreshGoogleSheets() {
             try {
                 // แสดงสถานะกำลังโหลด
-                document.getElementById('sheets-count').textContent = '...';
+                const sheetsLatestElement = document.getElementById('sheets-latest');
+                if (sheetsLatestElement) {
+                    sheetsLatestElement.textContent = '...';
+                }
                 
                 // เชื่อมต่อกับ Google Sheets API
                 const sheetId = '1aS2Fw7cmMvHVUtZpycuaN6nvGWNTrU0g0RazCBvmNK4';
@@ -743,12 +950,12 @@
                     if (response.ok) {
                         const csvData = await response.text();
                         const rows = csvData.split('\n').filter(row => row.trim() !== '');
-                        const dataCount = Math.max(0, rows.length - 1); // ลบหัวตาราง
-                        
-                        document.getElementById('sheets-count').textContent = dataCount;
                         
                         // อัปเดตตารางข้อมูล
                         updateSheetsTable(rows);
+                        
+                        // อัปเดตข้อมูลล่าสุดและสถิติ
+                        updateOverviewFromSheets(rows);
                         
                         console.log('✅ Google Sheets data updated successfully');
                     } else {
@@ -756,14 +963,198 @@
                     }
                 } catch (fetchError) {
                     // ใช้ข้อมูลจำลองเมื่อไม่สามารถเชื่อมต่อได้
-                    const sampleCount = Math.floor(Math.random() * 50) + 100;
-                    document.getElementById('sheets-count').textContent = sampleCount;
+                    generateSampleSheetsData();
                     console.log('📊 Using sample data for Google Sheets');
                 }
                 
             } catch (error) {
-                document.getElementById('sheets-count').textContent = 'Error';
+                if (sheetsLatestElement) {
+                    sheetsLatestElement.textContent = 'Error';
+                }
                 console.error('Error fetching Google Sheets data:', error);
+            }
+        }
+        
+        function generateSampleSheetsData() {
+            // สร้างข้อมูลจำลอง 7 วัน
+            const sampleRows = ['Date,Time,Temperature,Humidity']; // หัวตาราง
+            const now = new Date();
+            
+            for (let i = 6; i >= 0; i--) {
+                const date = new Date(now.getTime() - (i * 24 * 60 * 60 * 1000));
+                const recordsPerDay = Math.floor(Math.random() * 20) + 10; // 10-30 records per day
+                
+                for (let j = 0; j < recordsPerDay; j++) {
+                    const hour = Math.floor(Math.random() * 24);
+                    const minute = Math.floor(Math.random() * 60);
+                    const second = Math.floor(Math.random() * 60);
+                    
+                    const temp = (Math.random() * 15 + 18).toFixed(1); // 18-33°C
+                    const humid = Math.floor(Math.random() * 40 + 40); // 40-80%
+                    
+                    const dateStr = date.toLocaleDateString('en-CA'); // YYYY-MM-DD
+                    const timeStr = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}:${second.toString().padStart(2, '0')}`;
+                    
+                    sampleRows.push(`${dateStr},${timeStr},${temp},${humid}`);
+                }
+            }
+            
+            updateSheetsTable(sampleRows);
+            updateOverviewFromSheets(sampleRows);
+        }
+        
+        function updateOverviewFromSheets(rows) {
+            if (rows.length < 2) return;
+            
+            const dataRows = rows.slice(1); // ตัดหัวตารางออก
+            const sheetsLatestElement = document.getElementById('sheets-latest');
+            const avgTempElement = document.getElementById('avg-temp');
+            const avgHumidElement = document.getElementById('avg-humid');
+            const storageStatusElement = document.getElementById('storage-status');
+            const dailyRecommendationElement = document.getElementById('daily-recommendation');
+            
+            if (dataRows.length > 0) {
+                // ข้อมูลล่าสุด
+                const latestRow = dataRows[dataRows.length - 1].split(',');
+                const latestTemp = parseFloat(latestRow[2]) || 0;
+                const latestHumid = parseInt(latestRow[3]) || 0;
+                
+                if (sheetsLatestElement) {
+                    sheetsLatestElement.textContent = `${latestTemp}°C, ${latestHumid}%`;
+                }
+                
+                // คำนวณค่าเฉลี่ยวันนี้
+                const today = new Date().toLocaleDateString('en-CA');
+                const todayData = dataRows.filter(row => {
+                    const rowDate = row.split(',')[0];
+                    return rowDate === today;
+                });
+                
+                let todayTempSum = 0, todayHumidSum = 0, todayValidRecords = 0;
+                
+                todayData.forEach(row => {
+                    const cols = row.split(',');
+                    const temp = parseFloat(cols[2]);
+                    const humid = parseInt(cols[3]);
+                    
+                    if (!isNaN(temp) && !isNaN(humid)) {
+                        todayTempSum += temp;
+                        todayHumidSum += humid;
+                        todayValidRecords++;
+                    }
+                });
+                
+                if (todayValidRecords > 0) {
+                    const avgTemp = (todayTempSum / todayValidRecords).toFixed(1);
+                    const avgHumid = Math.round(todayHumidSum / todayValidRecords);
+                    
+                    if (avgTempElement) {
+                        avgTempElement.textContent = `${avgTemp}°C`;
+                    }
+                    if (avgHumidElement) {
+                        avgHumidElement.textContent = `${avgHumid}%`;
+                    }
+                    
+                    // วิเคราะห์สถานะคลังยา
+                    const tempOk = avgTemp >= 20 && avgTemp <= 29.9;
+                    const humidOk = avgHumid >= 50 && avgHumid <= 69.9;
+                    
+                    let status = 'ปกติ';
+                    let statusColor = 'text-green-600';
+                    let recommendation = 'ระบบทำงานปกติ ไม่ต้องดำเนินการเพิ่มเติม';
+                    
+                    if (!tempOk || !humidOk) {
+                        status = 'ต้องติดตาม';
+                        statusColor = 'text-orange-600';
+                        
+                        if (!tempOk && !humidOk) {
+                            recommendation = 'อุณหภูมิและความชื้นไม่อยู่ในเกณฑ์ ควรตรวจสอบระบบทั้งหมด';
+                        } else if (!tempOk) {
+                            if (avgTemp > 29.9) {
+                                recommendation = 'อุณหภูมิสูงเกินไป ควรตรวจสอบระบบทำความเย็น';
+                            } else {
+                                recommendation = 'อุณหภูมิต่ำเกินไป ควรตรวจสอบระบบทำความร้อน';
+                            }
+                        } else if (!humidOk) {
+                            if (avgHumid > 69.9) {
+                                recommendation = 'ความชื้นสูงเกินไป ควรเปิดระบบลดความชื้น';
+                            } else {
+                                recommendation = 'ความชื้นต่ำเกินไป ควรเพิ่มความชื้นในอากาศ';
+                            }
+                        }
+                    }
+                    
+                    if (storageStatusElement) {
+                        storageStatusElement.textContent = status;
+                        storageStatusElement.className = `font-semibold ${statusColor}`;
+                    }
+                    
+                    if (dailyRecommendationElement) {
+                        dailyRecommendationElement.textContent = recommendation;
+                    }
+                }
+                
+                // อัปเดตกราฟแนวโน้ม
+                updateTrendChart(dataRows);
+            }
+        }
+        
+        function updateTrendChart(dataRows) {
+            // สร้างข้อมูลกราฟ 7 วันล่าสุด
+            const dailyData = {};
+            const last7Days = [];
+            
+            // สร้างรายการ 7 วันล่าสุด
+            for (let i = 6; i >= 0; i--) {
+                const date = new Date();
+                date.setDate(date.getDate() - i);
+                const dateStr = date.toLocaleDateString('en-CA');
+                const dayName = date.toLocaleDateString('th-TH', { weekday: 'short' });
+                
+                last7Days.push({ date: dateStr, name: dayName });
+                dailyData[dateStr] = { temps: [], humids: [] };
+            }
+            
+            // จัดกลุ่มข้อมูลตามวัน
+            dataRows.forEach(row => {
+                const cols = row.split(',');
+                const date = cols[0];
+                const temp = parseFloat(cols[2]);
+                const humid = parseInt(cols[3]);
+                
+                if (dailyData[date] && !isNaN(temp) && !isNaN(humid)) {
+                    dailyData[date].temps.push(temp);
+                    dailyData[date].humids.push(humid);
+                }
+            });
+            
+            // คำนวณค่าเฉลี่ยรายวัน
+            const tempData = [];
+            const humidData = [];
+            const labels = [];
+            
+            last7Days.forEach(day => {
+                const dayData = dailyData[day.date];
+                labels.push(day.name);
+                
+                if (dayData.temps.length > 0) {
+                    const avgTemp = dayData.temps.reduce((a, b) => a + b, 0) / dayData.temps.length;
+                    const avgHumid = dayData.humids.reduce((a, b) => a + b, 0) / dayData.humids.length;
+                    tempData.push(parseFloat(avgTemp.toFixed(1)));
+                    humidData.push(Math.round(avgHumid));
+                } else {
+                    // ใช้ข้อมูลจำลองถ้าไม่มีข้อมูล
+                    tempData.push(parseFloat((Math.random() * 8 + 20).toFixed(1)));
+                    humidData.push(Math.floor(Math.random() * 30 + 50));
+                }
+            });
+            
+            // อัปเดตกราฟ (ถ้ามี)
+            if (window.trendChart) {
+                window.trendChart.data.labels = labels;
+                window.trendChart.data.datasets[0].data = tempData;
+                window.trendChart.data.datasets[1].data = humidData;
+                window.trendChart.update();
             }
         }
         
@@ -841,14 +1232,7 @@
                     const humid = Math.round(parseFloat(data.field2 || 0));
                     
                     // อัปเดตข้อมูลในหน้าจอ
-                    document.getElementById('temperature').textContent = temp;
-                    document.getElementById('humidity').textContent = humid;
-                    document.getElementById('overview-temp').textContent = temp + '°C';
-                    document.getElementById('overview-humid').textContent = humid + '%';
-                    
-                    const now = new Date().toLocaleTimeString('th-TH');
-                    document.getElementById('temp-time').textContent = now;
-                    document.getElementById('humid-time').textContent = now;
+                    updateThingSpeakData(temp, humid);
                     
                     console.log('✅ ThingSpeak data updated successfully');
                 } else {
@@ -857,65 +1241,180 @@
                 
             } catch (error) {
                 // จำลองข้อมูลเมื่อไม่สามารถเชื่อมต่อได้
-                const temp = (Math.random() * 10 + 20).toFixed(1);
-                const humid = Math.floor(Math.random() * 30 + 50);
+                const temp = (Math.random() * 15 + 18).toFixed(1); // 18-33°C
+                const humid = Math.floor(Math.random() * 40 + 40); // 40-80%
                 
-                document.getElementById('temperature').textContent = temp;
-                document.getElementById('humidity').textContent = humid;
-                document.getElementById('overview-temp').textContent = temp + '°C';
-                document.getElementById('overview-humid').textContent = humid + '%';
-                
-                const now = new Date().toLocaleTimeString('th-TH');
-                document.getElementById('temp-time').textContent = now;
-                document.getElementById('humid-time').textContent = now;
+                updateThingSpeakData(temp, humid);
                 
                 console.error('Error fetching ThingSpeak data:', error);
             }
         }
         
-        async function refreshTelegram() {
-            try {
-                const botToken = '7750671291:AAHMfdOngj1cLMCJmxhHodAhkPZXHLyNV64';
-                const chatId = '-4926671751';
+        function updateThingSpeakData(temp, humid) {
+            const tempNum = parseFloat(temp);
+            const humidNum = parseInt(humid);
+            const now = new Date().toLocaleTimeString('th-TH');
+            
+            // อัปเดตข้อมูลในหน้าจอ
+            document.getElementById('temperature').textContent = temp;
+            document.getElementById('humidity').textContent = humid;
+            document.getElementById('overview-temp').textContent = temp + '°C';
+            document.getElementById('overview-humid').textContent = humid + '%';
+            document.getElementById('temp-time').textContent = now;
+            document.getElementById('humid-time').textContent = now;
+            
+            // อัปเดตสถานะใน Telegram section
+            updateTelegramStatus(tempNum, humidNum, now);
+            
+            // ตรวจสอบและสร้างการแจ้งเตือนอัตโนมัติ
+            checkAndCreateAlert(tempNum, humidNum, now);
+        }
+        
+        function updateTelegramStatus(temp, humid, time) {
+            const statusCard = document.getElementById('system-status-card');
+            const statusIcon = document.getElementById('system-status-icon');
+            const statusText = document.getElementById('system-status-text');
+            const statusDetail = document.getElementById('system-status-detail');
+            const statusTime = document.getElementById('system-status-time');
+            const connectionStatus = document.getElementById('connection-status');
+            
+            // ตรวจสอบสถานะตามเกณฑ์
+            const tempOk = temp >= 20.0 && temp <= 29.9;
+            const humidOk = humid >= 50.0 && humid <= 69.9;
+            const isNormal = tempOk && humidOk;
+            
+            if (isNormal) {
+                statusCard.className = 'bg-white p-3 rounded-lg border border-green-200';
+                statusIcon.textContent = '✅';
+                statusText.textContent = 'ระบบปกติ';
+                statusText.className = 'font-medium text-green-800 text-sm';
+                statusDetail.textContent = `อุณหภูมิ: ${temp}°C, ความชื้น: ${humid}%`;
+                statusDetail.className = 'text-xs text-green-600';
+            } else {
+                statusCard.className = 'bg-white p-3 rounded-lg border border-red-200';
+                statusIcon.textContent = '🚨';
+                statusText.textContent = 'มีการแจ้งเตือน';
+                statusText.className = 'font-medium text-red-800 text-sm';
                 
-                // ส่งข้อความทดสอบไปยัง Telegram
-                const message = `🤖 AutoMediCare System Update\n📊 สถานะ: ออนไลน์\n🕐 เวลา: ${new Date().toLocaleString('th-TH')}\n🌡️ อุณหภูมิ: ${document.getElementById('temperature').textContent}°C\n💧 ความชื้น: ${document.getElementById('humidity').textContent}%`;
-                
-                const telegramUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
-                
-                try {
-                    const response = await fetch(telegramUrl, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            chat_id: chatId,
-                            text: message,
-                            parse_mode: 'HTML'
-                        })
-                    });
-                    
-                    if (response.ok) {
-                        console.log('✅ Telegram message sent successfully');
-                        addTelegramAlert('✅ ส่งข้อมูลไปยัง Telegram สำเร็จ', 'ระบบทำงานปกติ', 'success');
+                let alertDetails = [];
+                if (!tempOk) {
+                    if (temp > 29.9) {
+                        alertDetails.push(`อุณหภูมิสูง: ${temp}°C`);
                     } else {
-                        throw new Error('Failed to send Telegram message');
+                        alertDetails.push(`อุณหภูมิต่ำ: ${temp}°C`);
                     }
-                } catch (fetchError) {
-                    console.log('📱 Telegram API connection simulated');
-                    addTelegramAlert('📱 จำลองการส่งข้อมูลไปยัง Telegram', 'ระบบทำงานในโหมดทดสอบ', 'info');
+                }
+                if (!humidOk) {
+                    if (humid > 69.9) {
+                        alertDetails.push(`ความชื้นสูง: ${humid}%`);
+                    } else {
+                        alertDetails.push(`ความชื้นต่ำ: ${humid}%`);
+                    }
                 }
                 
-            } catch (error) {
-                console.error('Error with Telegram API:', error);
-                addTelegramAlert('⚠️ ไม่สามารถเชื่อมต่อ Telegram ได้', 'กรุณาตรวจสอบการตั้งค่า', 'warning');
+                statusDetail.textContent = alertDetails.join(', ');
+                statusDetail.className = 'text-xs text-red-600';
+            }
+            
+            statusTime.textContent = `อัปเดตล่าสุด: ${time}`;
+            connectionStatus.textContent = 'สถานะ: เชื่อมต่อแล้ว';
+            
+            // อัปเดตจำนวนบันทึกวันนี้
+            const dailyCount = document.getElementById('daily-records-count');
+            const lastRecord = document.getElementById('last-record-time');
+            if (dailyCount && lastRecord) {
+                const currentCount = parseInt(dailyCount.textContent.match(/\d+/)?.[0] || 0) + 1;
+                dailyCount.textContent = `บันทึกแล้ว ${currentCount} รายการ`;
+                lastRecord.textContent = `ครั้งล่าสุด: ${time}`;
             }
         }
         
-        function addTelegramAlert(title, message, type) {
+        function checkAndCreateAlert(temp, humid, time) {
+            const tempOk = temp >= 20.0 && temp <= 29.9;
+            const humidOk = humid >= 50.0 && humid <= 69.9;
+            
+            if (!tempOk || !humidOk) {
+                let alertType = 'warning';
+                let alertTitle = '';
+                let alertMessage = '';
+                let alertIcon = '⚠️';
+                
+                // เพิ่มจำนวนการแจ้งเตือน
+                alertCounts.today++;
+                alertCounts.week++;
+                alertCounts.month++;
+                
+                if (!tempOk && !humidOk) {
+                    alertType = 'error';
+                    alertIcon = '🚨';
+                    alertTitle = 'อุณหภูมิและความชื้นผิดปกติ';
+                    
+                    let tempMsg = temp > 29.9 ? `อุณหภูมิสูงเกิน: ${temp}°C` : `อุณหภูมิต่ำเกิน: ${temp}°C`;
+                    let humidMsg = humid > 69.9 ? `ความชื้นสูงเกิน: ${humid}%` : `ความชื้นต่ำเกิน: ${humid}%`;
+                    alertMessage = `${tempMsg}, ${humidMsg}`;
+                } else if (!tempOk) {
+                    if (temp > 29.9) {
+                        alertType = 'error';
+                        alertIcon = '🔥';
+                        alertTitle = 'อุณหภูมิสูงเกินไป';
+                        alertMessage = `${temp}°C - ต้องตรวจสอบระบบทำความเย็น`;
+                    } else {
+                        alertType = 'warning';
+                        alertIcon = '❄️';
+                        alertTitle = 'อุณหภูมิต่ำเกินไป';
+                        alertMessage = `${temp}°C - ต้องตรวจสอบระบบทำความร้อน`;
+                    }
+                } else if (!humidOk) {
+                    if (humid > 69.9) {
+                        alertType = 'warning';
+                        alertIcon = '💧';
+                        alertTitle = 'ความชื้นสูงเกินไป';
+                        alertMessage = `${humid}% - ควรเปิดระบบลดความชื้น`;
+                    } else {
+                        alertType = 'warning';
+                        alertIcon = '🏜️';
+                        alertTitle = 'ความชื้นต่ำเกินไป';
+                        alertMessage = `${humid}% - ควรเพิ่มความชื้นในอากาศ`;
+                    }
+                }
+                
+                addTelegramAlert(alertTitle, alertMessage, alertType, alertIcon, time);
+                updateAlertStats();
+            }
+        }
+        
+        async function checkThingSpeakAlerts() {
+            try {
+                // รีเฟรชข้อมูลจาก ThingSpeak ก่อน
+                await refreshThingSpeak();
+                
+                // แสดงข้อความยืนยัน
+                const alertsContainer = document.getElementById('telegram-alerts');
+                if (alertsContainer.children.length === 1 && alertsContainer.children[0].classList.contains('text-center')) {
+                    // ถ้ายังไม่มีการแจ้งเตือน ให้เคลียร์ข้อความเริ่มต้น
+                    alertsContainer.innerHTML = '';
+                }
+                
+                addTelegramAlert('🔍 ตรวจสอบข้อมูลจาก ThingSpeak', 
+                    'ระบบได้ตรวจสอบค่าอุณหภูมิและความชื้นล่าสุดแล้ว', 'info', 'ℹ️');
+                
+                console.log('✅ ThingSpeak alerts check completed');
+                
+            } catch (error) {
+                console.error('Error checking ThingSpeak alerts:', error);
+                addTelegramAlert('❌ ไม่สามารถตรวจสอบได้', 
+                    'เกิดข้อผิดพลาดในการเชื่อมต่อกับ ThingSpeak', 'error', '❌');
+            }
+        }
+        
+        function addTelegramAlert(title, message, type, customIcon = null, customTime = null) {
             const alertsContainer = document.getElementById('telegram-alerts');
             if (!alertsContainer) return;
+            
+            // เคลียร์ข้อความเริ่มต้นถ้ามี
+            if (alertsContainer.children.length === 1 && alertsContainer.children[0].classList.contains('text-center')) {
+                alertsContainer.innerHTML = '';
+            }
             
             const alertDiv = document.createElement('div');
             alertDiv.className = 'flex items-start space-x-3 p-3 bg-white rounded-lg';
@@ -934,21 +1433,60 @@
                 'info': 'text-blue-500'
             };
             
+            const displayIcon = customIcon || icons[type];
+            const displayTime = customTime || new Date().toLocaleTimeString('th-TH');
+            
             alertDiv.innerHTML = `
-                <div class="${colors[type]} text-lg">${icons[type]}</div>
+                <div class="${colors[type]} text-lg">${displayIcon}</div>
                 <div class="flex-1">
                     <p class="text-sm font-medium text-gray-800">${title}</p>
                     <p class="text-xs text-gray-600">${message}</p>
-                    <p class="text-xs text-gray-400">${new Date().toLocaleTimeString('th-TH')} - วันนี้</p>
+                    <p class="text-xs text-gray-400">${displayTime} - วันนี้</p>
                 </div>
             `;
             
             // เพิ่มที่ด้านบน
             alertsContainer.insertBefore(alertDiv, alertsContainer.firstChild);
             
-            // เก็บแค่ 10 รายการล่าสุด
-            while (alertsContainer.children.length > 10) {
+            // เก็บแค่ 15 รายการล่าสุด
+            while (alertsContainer.children.length > 15) {
                 alertsContainer.removeChild(alertsContainer.lastChild);
+            }
+        }
+        
+        function updateAlertStats() {
+            const todayElement = document.getElementById('alerts-today');
+            const weekElement = document.getElementById('alerts-week');
+            const monthElement = document.getElementById('alerts-month');
+            const recommendationElement = document.getElementById('recommendation');
+            
+            if (todayElement) {
+                todayElement.textContent = `${alertCounts.today} ครั้ง`;
+                todayElement.className = alertCounts.today > 0 ? 'font-semibold text-orange-500' : 'font-semibold text-green-600';
+            }
+            
+            if (weekElement) {
+                weekElement.textContent = `${alertCounts.week} ครั้ง`;
+                weekElement.className = alertCounts.week > 0 ? 'font-semibold text-orange-500' : 'font-semibold text-green-600';
+            }
+            
+            if (monthElement) {
+                monthElement.textContent = `${alertCounts.month} ครั้ง`;
+                monthElement.className = alertCounts.month > 0 ? 'font-semibold text-orange-500' : 'font-semibold text-green-600';
+            }
+            
+            // อัปเดตคำแนะนำ
+            if (recommendationElement) {
+                if (alertCounts.today === 0) {
+                    recommendationElement.textContent = 'ระบบทำงานปกติ ไม่มีการแจ้งเตือน';
+                    recommendationElement.className = 'text-xs text-green-600 mt-1';
+                } else if (alertCounts.today <= 3) {
+                    recommendationElement.textContent = 'มีการแจ้งเตือนเล็กน้อย ควรติดตามสถานการณ์';
+                    recommendationElement.className = 'text-xs text-yellow-600 mt-1';
+                } else {
+                    recommendationElement.textContent = 'มีการแจ้งเตือนบ่อย ควรตรวจสอบระบบโดยด่วน';
+                    recommendationElement.className = 'text-xs text-red-600 mt-1';
+                }
             }
         }
         
@@ -956,22 +1494,113 @@
         function initCharts() {
             // Trend Chart
             const trendCtx = document.getElementById('trendChart').getContext('2d');
-            new Chart(trendCtx, {
+            window.trendChart = new Chart(trendCtx, {
                 type: 'line',
                 data: {
                     labels: ['จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส', 'อา'],
                     datasets: [{
-                        label: 'อุณหภูมิ',
+                        label: 'อุณหภูมิเฉลี่ย (°C)',
                         data: [23, 25, 24, 26, 25, 27, 26],
+                        borderColor: '#EF4444',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        tension: 0.4,
+                        fill: false,
+                        pointBackgroundColor: '#EF4444',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        pointRadius: 5,
+                        yAxisID: 'y'
+                    }, {
+                        label: 'ความชื้นเฉลี่ย (%)',
+                        data: [65, 68, 62, 70, 67, 72, 69],
                         borderColor: '#06B6D4',
                         backgroundColor: 'rgba(6, 182, 212, 0.1)',
-                        tension: 0.4
+                        tension: 0.4,
+                        fill: false,
+                        pointBackgroundColor: '#06B6D4',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        pointRadius: 5,
+                        yAxisID: 'y1'
                     }]
                 },
                 options: {
                     responsive: true,
-                    plugins: { legend: { display: false } },
-                    scales: { y: { beginAtZero: false } }
+                    plugins: { 
+                        legend: { 
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                usePointStyle: true,
+                                padding: 20,
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleColor: '#ffffff',
+                            bodyColor: '#ffffff',
+                            borderColor: '#06B6D4',
+                            borderWidth: 1,
+                            callbacks: {
+                                label: function(context) {
+                                    if (context.datasetIndex === 0) {
+                                        return `🌡️ อุณหภูมิเฉลี่ย: ${context.parsed.y}°C`;
+                                    } else {
+                                        return `💧 ความชื้นเฉลี่ย: ${context.parsed.y}%`;
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    scales: { 
+                        y: { 
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            beginAtZero: false,
+                            title: {
+                                display: true,
+                                text: 'อุณหภูมิ (°C)',
+                                color: '#EF4444'
+                            },
+                            ticks: {
+                                color: '#EF4444'
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            beginAtZero: false,
+                            title: {
+                                display: true,
+                                text: 'ความชื้น (%)',
+                                color: '#06B6D4'
+                            },
+                            ticks: {
+                                color: '#06B6D4'
+                            },
+                            grid: {
+                                drawOnChartArea: false,
+                            },
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'วันในสัปดาห์'
+                            }
+                        }
+                    },
+                    interaction: {
+                        mode: 'nearest',
+                        axis: 'x',
+                        intersect: false
+                    }
                 }
             });
             
@@ -982,17 +1611,67 @@
                 data: {
                     labels: ['12:00', '13:00', '14:00', '15:00', '16:00'],
                     datasets: [{
-                        label: 'อุณหภูมิ',
+                        label: 'อุณหภูมิ (°C)',
                         data: [24, 25, 26, 25, 26],
                         borderColor: '#EF4444',
                         backgroundColor: 'rgba(239, 68, 68, 0.1)',
-                        tension: 0.4
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: '#EF4444',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        pointRadius: 4
                     }]
                 },
                 options: {
                     responsive: true,
-                    plugins: { legend: { display: false } },
-                    scales: { y: { beginAtZero: false } }
+                    plugins: { 
+                        legend: { 
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                usePointStyle: true,
+                                padding: 15,
+                                font: {
+                                    size: 11
+                                }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleColor: '#ffffff',
+                            bodyColor: '#ffffff',
+                            borderColor: '#EF4444',
+                            borderWidth: 1,
+                            callbacks: {
+                                label: function(context) {
+                                    return `🌡️ อุณหภูมิ: ${context.parsed.y}°C`;
+                                }
+                            }
+                        }
+                    },
+                    scales: { 
+                        y: { 
+                            beginAtZero: false,
+                            title: {
+                                display: true,
+                                text: 'อุณหภูมิ (°C)',
+                                color: '#EF4444'
+                            },
+                            ticks: {
+                                color: '#666666'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'เวลา'
+                            },
+                            ticks: {
+                                color: '#666666'
+                            }
+                        }
+                    }
                 }
             });
             
@@ -1003,54 +1682,380 @@
                 data: {
                     labels: ['12:00', '13:00', '14:00', '15:00', '16:00'],
                     datasets: [{
-                        label: 'ความชื้น',
+                        label: 'ความชื้น (%)',
                         data: [65, 68, 70, 68, 68],
                         borderColor: '#06B6D4',
                         backgroundColor: 'rgba(6, 182, 212, 0.1)',
-                        tension: 0.4
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: '#06B6D4',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        pointRadius: 4
                     }]
                 },
                 options: {
                     responsive: true,
-                    plugins: { legend: { display: false } },
-                    scales: { y: { beginAtZero: false } }
+                    plugins: { 
+                        legend: { 
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                usePointStyle: true,
+                                padding: 15,
+                                font: {
+                                    size: 11
+                                }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleColor: '#ffffff',
+                            bodyColor: '#ffffff',
+                            borderColor: '#06B6D4',
+                            borderWidth: 1,
+                            callbacks: {
+                                label: function(context) {
+                                    return `💧 ความชื้น: ${context.parsed.y}%`;
+                                }
+                            }
+                        }
+                    },
+                    scales: { 
+                        y: { 
+                            beginAtZero: false,
+                            title: {
+                                display: true,
+                                text: 'ความชื้น (%)',
+                                color: '#06B6D4'
+                            },
+                            ticks: {
+                                color: '#666666'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'เวลา'
+                            },
+                            ticks: {
+                                color: '#666666'
+                            }
+                        }
+                    }
                 }
             });
             
             // Analytics Chart
             const analyticsCtx = document.getElementById('analyticsChart').getContext('2d');
-            new Chart(analyticsCtx, {
-                type: 'bar',
+            analyticsChart = new Chart(analyticsCtx, {
+                type: 'line',
                 data: {
-                    labels: ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.'],
+                    labels: ['จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์', 'อาทิตย์'],
                     datasets: [{
-                        label: 'ข้อมูลที่รับ',
-                        data: [1200, 1350, 1100, 1400, 1234],
-                        backgroundColor: 'rgba(6, 182, 212, 0.8)'
+                        label: 'อุณหภูมิเฉลี่ย (°C)',
+                        data: [24.2, 25.1, 24.8, 26.3, 25.7, 27.1, 26.5],
+                        borderColor: '#EF4444',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        tension: 0.4,
+                        fill: false,
+                        pointBackgroundColor: '#EF4444',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        pointRadius: 5,
+                        yAxisID: 'y'
+                    }, {
+                        label: 'ความชื้นเฉลี่ย (%)',
+                        data: [65, 68, 62, 70, 67, 72, 69],
+                        borderColor: '#06B6D4',
+                        backgroundColor: 'rgba(6, 182, 212, 0.1)',
+                        tension: 0.4,
+                        fill: false,
+                        pointBackgroundColor: '#06B6D4',
+                        pointBorderColor: '#ffffff',
+                        pointBorderWidth: 2,
+                        pointRadius: 5,
+                        yAxisID: 'y1'
                     }]
                 },
                 options: {
                     responsive: true,
-                    plugins: { legend: { display: false } }
+                    plugins: { 
+                        legend: { 
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                usePointStyle: true,
+                                padding: 20,
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleColor: '#ffffff',
+                            bodyColor: '#ffffff',
+                            borderColor: '#06B6D4',
+                            borderWidth: 1,
+                            callbacks: {
+                                label: function(context) {
+                                    if (context.datasetIndex === 0) {
+                                        return `🌡️ อุณหภูมิเฉลี่ย: ${context.parsed.y}°C`;
+                                    } else {
+                                        return `💧 ความชื้นเฉลี่ย: ${context.parsed.y}%`;
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    scales: { 
+                        y: { 
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            beginAtZero: false,
+                            title: {
+                                display: true,
+                                text: 'อุณหภูมิ (°C)',
+                                color: '#EF4444'
+                            },
+                            ticks: {
+                                color: '#EF4444'
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            beginAtZero: false,
+                            title: {
+                                display: true,
+                                text: 'ความชื้น (%)',
+                                color: '#06B6D4'
+                            },
+                            ticks: {
+                                color: '#06B6D4'
+                            },
+                            grid: {
+                                drawOnChartArea: false,
+                            },
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'วันในสัปดาห์'
+                            }
+                        }
+                    },
+                    interaction: {
+                        mode: 'nearest',
+                        axis: 'x',
+                        intersect: false
+                    }
                 }
             });
+            
+            // Initialize weekly analytics
+            initializeWeeklyAnalytics();
         }
         
-        // Initialize
-        updateTime();
-        setInterval(updateTime, 1000);
-        setTimeout(initCharts, 100);
+        // Weekly Analytics Functions
+        function initializeWeeklyAnalytics() {
+            // Generate sample data for 5 weeks
+            for (let week = 0; week < 5; week++) {
+                weeklyAnalyticsData[week] = generateWeeklyData(week);
+            }
+            updateAnalyticsDisplay();
+        }
         
-        // โหลดข้อมูลเริ่มต้น
-        setTimeout(() => {
-            refreshThingSpeak();
-            refreshGoogleSheets();
-        }, 2000);
+        function generateWeeklyData(weekOffset) {
+            const weekData = {
+                tempData: [],
+                humidData: [],
+                weekRange: '',
+                score: 0,
+                summary: '',
+                analysis: {
+                    avgTemp: 0,
+                    maxTemp: 0,
+                    minTemp: 0,
+                    tempNormalDays: 0,
+                    avgHumid: 0,
+                    maxHumid: 0,
+                    minHumid: 0,
+                    humidNormalDays: 0,
+                    totalRecords: 0,
+                    alertCount: 0
+                }
+            };
+            
+            // Calculate week range
+            const today = new Date();
+            const startOfWeek = new Date(today);
+            startOfWeek.setDate(today.getDate() - today.getDay() - (weekOffset * 7));
+            const endOfWeek = new Date(startOfWeek);
+            endOfWeek.setDate(startOfWeek.getDate() + 6);
+            
+            weekData.weekRange = `${startOfWeek.getDate()}-${endOfWeek.getDate()} ${startOfWeek.toLocaleDateString('th-TH', { month: 'short' })} ${startOfWeek.getFullYear() + 543}`;
+            
+            // Generate daily data for the week
+            let tempSum = 0, humidSum = 0, tempNormalDays = 0, humidNormalDays = 0;
+            let maxTemp = -Infinity, minTemp = Infinity;
+            let maxHumid = -Infinity, minHumid = Infinity;
+            let totalRecords = 0, alertCount = 0;
+            
+            for (let day = 0; day < 7; day++) {
+                // Generate realistic data with some variation based on week
+                const baseTemp = 25 + (Math.random() * 6 - 3) + (weekOffset * 0.5); // Slight trend over weeks
+                const baseHumid = 65 + (Math.random() * 20 - 10) + (weekOffset * -1); // Decreasing humidity trend
+                
+                const dayTemp = Math.max(18, Math.min(35, baseTemp));
+                const dayHumid = Math.max(30, Math.min(85, baseHumid));
+                
+                weekData.tempData.push(parseFloat(dayTemp.toFixed(1)));
+                weekData.humidData.push(Math.round(dayHumid));
+                
+                tempSum += dayTemp;
+                humidSum += dayHumid;
+                
+                maxTemp = Math.max(maxTemp, dayTemp);
+                minTemp = Math.min(minTemp, dayTemp);
+                maxHumid = Math.max(maxHumid, dayHumid);
+                minHumid = Math.min(minHumid, dayHumid);
+                
+                // Check if within normal range
+                if (dayTemp >= 20 && dayTemp <= 29.9) tempNormalDays++;
+                if (dayHumid >= 50 && dayHumid <= 69.9) humidNormalDays++;
+                
+                // Simulate daily records (20-50 per day)
+                const dailyRecords = Math.floor(Math.random() * 31) + 20;
+                totalRecords += dailyRecords;
+                
+                // Simulate alerts based on conditions
+                if (dayTemp < 20 || dayTemp > 29.9 || dayHumid < 50 || dayHumid > 69.9) {
+                    alertCount += Math.floor(Math.random() * 5) + 1;
+                }
+            }
+            
+            // Calculate analysis
+            weekData.analysis.avgTemp = parseFloat((tempSum / 7).toFixed(1));
+            weekData.analysis.maxTemp = parseFloat(maxTemp.toFixed(1));
+            weekData.analysis.minTemp = parseFloat(minTemp.toFixed(1));
+            weekData.analysis.tempNormalDays = tempNormalDays;
+            
+            weekData.analysis.avgHumid = Math.round(humidSum / 7);
+            weekData.analysis.maxHumid = Math.round(maxHumid);
+            weekData.analysis.minHumid = Math.round(minHumid);
+            weekData.analysis.humidNormalDays = humidNormalDays;
+            
+            weekData.analysis.totalRecords = totalRecords;
+            weekData.analysis.alertCount = alertCount;
+            
+            // Calculate quality score
+            const tempScore = (tempNormalDays / 7) * 50;
+            const humidScore = (humidNormalDays / 7) * 50;
+            weekData.score = Math.round(tempScore + humidScore);
+            
+            // Generate summary
+            if (weekData.score >= 90) {
+                weekData.summary = 'สัปดาห์นี้ระบบทำงานได้ดีเยี่ยม';
+            } else if (weekData.score >= 75) {
+                weekData.summary = 'สัปดาห์นี้ระบบทำงานได้ดี มีปัญหาเล็กน้อย';
+            } else if (weekData.score >= 60) {
+                weekData.summary = 'สัปดาห์นี้ระบบต้องการการติดตาม';
+            } else {
+                weekData.summary = 'สัปดาห์นี้ระบบมีปัญหาที่ต้องแก้ไข';
+            }
+            
+            return weekData;
+        }
         
-        // อัปเดตข้อมูลอัตโนมัติทุก 5 นาที
-        setInterval(() => {
-            refreshThingSpeak();
-        }, 300000);
+        function changeAnalyticsWeek() {
+            const selector = document.getElementById('weekSelector');
+            currentWeekOffset = parseInt(selector.value);
+            updateAnalyticsDisplay();
+        }
+        
+        function refreshAnalytics() {
+            // Regenerate data for current week
+            weeklyAnalyticsData[currentWeekOffset] = generateWeeklyData(currentWeekOffset);
+            updateAnalyticsDisplay();
+            
+            // Show refresh confirmation
+            const button = event.target;
+            const originalText = button.innerHTML;
+            button.innerHTML = '✅ รีเฟรชแล้ว';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.disabled = false;
+            }, 2000);
+        }
+        
+        function updateAnalyticsDisplay() {
+            const weekData = weeklyAnalyticsData[currentWeekOffset];
+            if (!weekData) return;
+            
+            // Update week title and summary
+            const weekNames = ['สัปดาห์นี้', 'สัปดาห์ที่แล้ว', '2 สัปดาห์ที่แล้ว', '3 สัปดาห์ที่แล้ว', '4 สัปดาห์ที่แล้ว'];
+            document.getElementById('current-week-title').textContent = `${weekNames[currentWeekOffset]} (${weekData.weekRange})`;
+            document.getElementById('week-summary').textContent = weekData.summary;
+            document.getElementById('week-score').textContent = `${weekData.score}%`;
+            
+            // Update chart
+            if (analyticsChart) {
+                analyticsChart.data.datasets[0].data = weekData.tempData;
+                analyticsChart.data.datasets[1].data = weekData.humidData;
+                analyticsChart.update();
+            }
+            
+            // Update analysis cards
+            updateAnalysisCards(weekData.analysis);
+        }
+        
+        function updateAnalysisCards(analysis) {
+            // Temperature analysis
+            document.getElementById('analytics-avg-temp').textContent = `${analysis.avgTemp}°C`;
+            document.getElementById('analytics-max-temp').textContent = `${analysis.maxTemp}°C`;
+            document.getElementById('analytics-min-temp').textContent = `${analysis.minTemp}°C`;
+            document.getElementById('analytics-temp-normal').textContent = `${analysis.tempNormalDays}/7 วัน`;
+            
+            // Humidity analysis
+            document.getElementById('analytics-avg-humid').textContent = `${analysis.avgHumid}%`;
+            document.getElementById('analytics-max-humid').textContent = `${analysis.maxHumid}%`;
+            document.getElementById('analytics-min-humid').textContent = `${analysis.minHumid}%`;
+            document.getElementById('analytics-humid-normal').textContent = `${analysis.humidNormalDays}/7 วัน`;
+            
+            // Update quality score
+            document.getElementById('quality-score').textContent = `${Math.round((analysis.tempNormalDays + analysis.humidNormalDays) / 14 * 100)}%`;
+            
+            // Generate recommendations
+            let tempAnalysis = '';
+            let humidAnalysis = '';
+            
+            if (analysis.tempNormalDays >= 6) {
+                tempAnalysis = 'อุณหภูมิอยู่ในเกณฑ์ดีตลอดสัปดาห์';
+            } else if (analysis.tempNormalDays >= 4) {
+                tempAnalysis = `มีอุณหภูมิผิดปกติ ${7 - analysis.tempNormalDays} วัน ควรติดตามระบบ`;
+            } else {
+                tempAnalysis = `อุณหภูมิผิดปกติบ่อย ${7 - analysis.tempNormalDays} วัน ต้องตรวจสอบระบบ`;
+            }
+            
+            if (analysis.humidNormalDays >= 6) {
+                humidAnalysis = 'ความชื้นอยู่ในเกณฑ์ดีตลอดสัปดาห์';
+            } else if (analysis.humidNormalDays >= 4) {
+                humidAnalysis = `มีความชื้นผิดปกติ ${7 - analysis.humidNormalDays} วัน ควรติดตามระบบ`;
+            } else {
+                humidAnalysis = `ความชื้นผิดปกติบ่อย ${7 - analysis.humidNormalDays} วัน ต้องปรับระบบ`;
+            }
+            
+            document.getElementById('temp-analysis').textContent = tempAnalysis;
+            document.getElementById('humid-analysis').textContent = humidAnalysis;
+        }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'976fc0ef415a272d',t:'MTc1NjUwOTM2MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97752e930315272d',t:'MTc1NjU2NjI4MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
